@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 29 March 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 2","digest_date":"29 March 2026","cases":[{"title":"HYATT TERMINAL AND INDUSTRIAL CORPORATION  v FILIPINAS THIRD MILLENIUM REALTY CORPORATION","citation":"[2026] SGHC(I) 3","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCI_3","matched_topics":["arbitration"],"law_shifted":true,"summary":{"bottom_line":"A contractual prohibition on assignment to \"third parties\" without consent does not carve out an exception for affiliates simply because the lessee is defined to include \"affiliated companies, successors and assigns.\" Where general law already prohibits assignment without consent (as under Art 1649 of the Philippine Civil Code), an additional contractual prohibition on assignment to third parties does not create a positive right to assign to affiliates.","facts_posture":"HTIC (lessor) and TPC (lessee) entered into a lease in 2000 over industrial land in the Philippines. The lease defined TPC to include \"affiliated companies, successors and assigns\" and prohibited assignment of rights and obligations to \"any third party\" without HTIC's consent (Art 20.2), though it permitted TPC to \"assign its rights\" to \"its assignees\" without consent for sublease purposes (Art 7(ii)). In 2021, TPC purported to assign the lease to FTMRC, a company within the same corporate group, without HTIC's consent. An ICC tribunal found by majority that FTMRC was an affiliate and the assignment valid. HTIC applied to set aside the award under Art 34(2)(a)(i) of the Model Law, arguing FTMRC was not a proper party to the arbitration agreement.","decided":"The Court set aside the award. HTIC's consent was required for the assignment to FTMRC even if FTMRC was an affiliate. Art 1649 of the Philippine Civil Code prohibits assignment by a lessee without the lessor's consent unless there is a stipulation to the contrary. Art 20.2 of the lease did not amount to such a contrary stipulation permitting assignment to affiliates. The phrase \"third party\" in Art 20.2 meant \"third party to the Lease Agreement\" — any non-signatory — not \"non-affiliate.\"","reasoning":"The Court reasoned that Art 20.2 could not derogate from the general prohibition in Art 1649 simply by adding an express prohibition against assignment to third parties without consent. As a matter of logic, a general prohibition is not limited by the addition of a specific prohibition covering a subset of cases. The literal meaning of \"third party\" is any party other than the two signatories; reading it as \"non-affiliate\" would introduce indeterminacy as to which entities fall outside that category. The inclusion of \"affiliated companies, successors and assigns\" in the definition of TPC merely echoed the legal truism that contracts bind assigns and did not create advance consent for assignment to affiliates. Art 7(ii), which permitted assignment of rights to \"assignees\" without consent, applied only to existing assignees in the context of subleases and liens, not future assignments of the lease itself. The dissenting arbitrator had correctly noted that TPC's own conduct in 2016 — seeking HTIC's consent for an assignment to an affiliate — supported the interpretation that consent was required. The Court also held that even if rights could be assigned, obligations could not be transferred without consent under Philippine law (novation requires the obligee's consent per Art 1293), but severance would save a valid assignment of rights if one existed.","watch":"The Court declined to admit an affidavit obtained after the arbitration filing deadline, despite finding a de novo review permits fresh evidence in principle, because it was of limited relevance absent full inquiry into the circumstances of its making. This suggests the Court may apply a relevance and cogency filter even on jurisdictional challenges, rather than mechanically applying the modified *Ladd v Marshall* test endorsed in *Sanum*."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the framework from *AQZ v ARA* [2015] 2 SLR 972 and *COT v COU* [2023] SGHC 69 governing the admission of fresh evidence in applications to set aside arbitral awards on jurisdictional grounds, treating these as establishing the operative test in this context. The Court considered but did not follow the modified *Ladd v Marshall* approach articulated in *Government of the Lao People's Democratic Republic v Sanum Investments Ltd* [2015] 2 SLR 322 and affirmed by the Court of Appeal in *Sanum Investments Ltd v Government of the Lao People's Democratic Republic* [2016] 5 SLR 53, signalling a divergence between the test for admitting fresh evidence in jurisdictional challenges to awards versus other setting-aside grounds. The citation of the Philippine Supreme Court's decision in *Benguet Corp v Cabildo* appears routine, invoked for the uncontroversial proposition that parties' conduct may illuminate ambiguous contractual terms.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment clarifies that the framework for admitting new evidence differs depending on the ground relied upon in a setting-aside application. By applying *AQZ v ARA* and *COT v COU* rather than the modified *Ladd v Marshall* test from the *Sanum* litigation, the Court appears to endorse a bifurcated approach: jurisdictional challenges attract a distinct (and possibly more permissive) evidential threshold than other setting-aside grounds. This represents an incremental development, distinguishing between procedural contexts within s 24 of the International Arbitration Act rather than announcing a wholly new rule.","cited_cases":[{"case_name":"ATS v ATT","citation":"[2016] SGHC 196","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A variation application under s 72 and/or s 118 of the Women's Charter is not a de novo application and it is presumed that the final maintenance order was appropriate at the time it was made."},{"case_name":"BZD v BZE","citation":"[2020] SGCA 1","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"The inquiry in a variation application is whether the change is sufficiently material such that it is no longer fair to expect the status quo to remain."},{"case_name":"Foo Ah Yan v Chiam Heng Chow","citation":"[2012] 2 SLR 506","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A husband is prima facie obliged to maintain his former wife beyond his retirement and up to the former wife's remarriage or the death of either party."},{"case_name":"Yow Mee Lan v Chen Kai Buan","citation":"[2000] 2 SLR(R) 659","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A husband paying monthly maintenance could not expect to be relieved entirely from this obligation by reason of retirement."},{"case_name":"Wan Lai Cheng v Quek Seow Kee and another appeal and another matter","citation":"[2012] 4 SLR 405","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"The appropriate multiplier for a lump sum maintenance award is typically calculated by taking the average of the average life expectancy of a woman and the usual retirement age of a Singapore male worker less the wife's present age."}]},{"title":"Vanbo Investments Pte Ltd v ph. AG & Anor","citation":"[2026] SGHC 65","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_65","matched_topics":["civil procedure","conflict of laws"],"law_shifted":true,"summary":{"bottom_line":"A worldwide Mareva injunction will be set aside where the claimant fails to establish either a real risk of dissipation or a good arguable case, even if only one limb fails. Where multiple competing jurisdiction clauses exist across related agreements, courts determine which clause governs by identifying the agreement with the closest connection to the \"pith and substance\" of the dispute. Material non-disclosure at an ex parte hearing — including misrepresenting the claimant's prior knowledge of","facts_posture":"Vanbo Investments Pte Ltd, a Singapore holding company, invested CHF1.5m in ph AG, a Swiss company, for shares and exclusive Asia-Pacific licensing rights for a beverage product. Disputes arose over alleged share dilution, misrepresentations about shareholding maintenance, and mandatory use of specific product components. Vanbo commenced proceedings in Singapore and obtained a worldwide Mareva injunction ex parte. The defendants applied to set aside the injunction and stay the proceedings on grounds of forum non conveniens and the existence of an arbitration clause. Multiple agreements governed different aspects of the relationship: an Investment Agreement (Singapore law, non-exclusive Singapore jurisdiction), a Shareholders' Agreement (Swiss law, exclusive Swiss jurisdiction), a License Agreement (ICC arbitration in Switzerland), and others.","decided":"The Court set aside the worldwide Mareva injunction and stayed the proceedings. Vanbo failed to establish a real risk of dissipation: the defendants' assets were not primarily liquid funds, no credible evidence s","reasoning":"The Court applied *Bouvier* and *JTrust Asia*: a claimant seeking worldwide Mareva relief must prove both a good arguable case and a real risk of dissipation through \"solid evidence,\" with more exacting scrutiny for worldwide relief. On dissipation risk, the Court followed *Continental Shipping Line*, holding that asset liquidity alone cannot establish risk, and that dealings in the ordinary course of business do not demonstrate unjustified asset disposal. Where a claimant possesses full knowledge of a defendant's financial position and voluntarily accepts associated risks, such circumstances cannot subsequently establish dissipation risk (*Continental Shipping* applied). On competing jurisdiction clauses, the Court adopted the \"pith and substance\" test from *Bunge SA* and *Oei Hong Leong*, examining which agreement bears the closest connection to the dispute's commercial centre. The Shareholders' Agreement's supremacy clause, its comprehensive treatment of shareholder rights, and Vanbo's own pleadings all pointed to Swiss jurisdiction for investment disputes. Applying *Vinmar Overseas*, the Court held that where an exclusive jurisdiction clause governs, the \"strong cause\" test under *The Eleftheria* replaces *Spiliada* forum non conveniens analysis. The Court distinguished *Donohue v Armco* (which prioritised avoiding fragmentation) and followed *Asiana Airlines* (which held that contractual forum selection cannot be overridden merely to avoid fragmentation when parties deliberately chose different dispute resolution mechanisms for different claims).","watch":"The judgment contains significant obiter on forum fragmentation: the Court endorsed the *Asiana Airlines* approach that parties receive the benefit of their contractual bargain even where this fragments proceedings, rejecting *Donohue*'s prioritisation of consolidation. Lower courts may rely on this in anti-suit injunction applications. The Court's analysis of competing jurisdiction clauses — particularly its willingness to give effect to different clauses governing different aspects of a commercial relationship — may influence how courts approach suite-of-agreements cases."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established framework in *Bouvier, Yves Charles Edgar v Accent Delight International Ltd* [2015] 5 SLR 558 and *JTrust Asia Pte Ltd v Group Lease Holdings Pte Ltd* [2018] 2 SLR 159 for Mareva injunctions without elaboration, treating the real risk of dissipation test as settled. More substantively, the Court engaged with *Bunge SA v Shrikant Bhasi* [2020] 2 SLR 1223 and *Oei Hong Leong v Goldman Sachs International* [2014] 3 SLR 1217 to determine which of several competing dispute resolution clauses governed the claims, applying the objective intention test to identify the applicable clause by reference to the nature and subject matter of each claim. The Court also applied *Vinmar Overseas (Singapore) Pte Ltd v PTT International Trading Pte Ltd* [2018] 2 SLR 1271 for the \"strong cause\" test governing stays in favour of exclusive jurisdiction clauses, and *Asiana Airlines, Inc v Gate Gourmet Korea Co, Ltd* [2024] 2 SLR 279 for the approach to forum fragmentation concerns in the arbitration context, clarifying how those concerns apply when different claims are properly subject to different dispute resolution mechanisms.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles to a complex multi-party, multi-contract dispute without developing new law. The Court's application of the objective intention test from *Bunge* and *Oei Hong Leong* to parse competing jurisdiction and arbitration clauses across multiple related agreements illustrates the mechanics of that test but does not extend or qualify it. The Court's treatment of forum fragmentation concerns under *Asiana Airlines* confirms that such concerns do not override parties' contractual allocation of disputes to different fora where the relevant clauses are clear and govern distinct subject matter.","cited_cases":[]},{"title":"Mustaqim Bin Abdul Kadir v PUBLIC PROSECUTOR","citation":"[2026] SGCA 15","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGCA_15","matched_topics":["abuse of process"],"law_shifted":true,"summary":{"bottom_line":"An application to adduce fresh evidence on appeal will be dismissed as an abuse of process where counsel had expressly considered calling psychiatric experts at trial to support a state-of-mind defence but deliberately chose not to do so, and now seeks to run that contradictory defence on appeal under the guise of fresh evidence.","facts_posture":"The appellant was convicted on a capital charge of trafficking not less than 56.8g of diamorphine. His trial defence was that 42.62g represented two bundles mistakenly delivered which he intended to return (\"Unwanted Drugs defence\"). He also challenged the admissibility of seven CNB statements on grounds of inducement. He appealed his conviction and sentence, and filed a criminal motion to adduce psychiatric evidence suggesting he was disoriented due to drug withdrawal when his statements were recorded, rendering them inadmissible (\"State of Mind Defence\").","decided":"The Court of Appeal dismissed both the criminal motion and the appeal. The fresh evidence failed the *Ladd v Marshall* test because: (i) it was available at trial — counsel had consulted a psychologist and psychiatrist about withdrawal symptoms but elected not to call them; (ii) the application constituted an abuse of process, being an attempt to secure a retrial on a contradictory defence; and (iii) the evidence was not material, as contemporaneous medical examinations s","reasoning":"The Court applied *Ladd v Marshall*'s three conditions (non-availability, materiality, reliability) as attenuated for criminal appeals per *Azuin bin Mohd Tap v PP* [2025] 1 SLR 259, but emphasised that even the relaxed test cannot permit tactical forum-shopping. Following *Masri Bin Hussain v PP* [2025] SGCA 9 and *Khetani v Kanbi* [2006] EWCA Civ 1621, the Court held it an abuse of process for a party to deliberately withhold evidence at trial, then seek to adduce it on appeal — particularly where doing so would require running an inconsistent defence. The record showed counsel had taken instructions on withdrawal symptoms but stopped when the Prosecution indicated it would not rely on the long statements in its case-in-chief, only to cross-examine with them later. Counsel never called the psychologist or psychiatrist. The Court found it contrived that the appellant claimed confusion prevented him mentioning the specific quantity (46.62g) that would take him below the capital threshold, when he had presence of mind to allegedly understand inducements and concoct detailed lies in response. On the substantive appeal, the Court applied *Jumadi bin Abdullah v PP* [2022] 1 SLR 814 to hold that the MDP Notice cannot objectively constitute an inducement by virtue of Explanation 2(aa) to s 258(3) CPC, regardless of how the accused subjectively understood it.","watch":"The Court's reasoning that inconsistent defences can render a fresh evidence application abusive may gain traction in appeals where accused persons attempt to run alternative cases sequentially rather than cumulatively at trial, particularly where counsel has expressly considered but forgone a line of defence."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the flexible approach to admitting fresh evidence in criminal appeals articulated in *Azuin bin Mohd Tap v Public Prosecutor* [2025] 1 SLR 259, which relaxes the strict *Ladd v Marshall* [1954] 1 WLR 1489 conditions in favour of a focus on relevance and reliability. More significantly, it extended the abuse of process principle from *Anan Group (Singapore) Pte Ltd v VTB Bank (Public Joint Stock Co)* [2019] 2 SLR 341—previously applied in civil contexts—to criminal appeals, holding that a deliberate tactical decision to proceed without evidence at trial cannot be reversed on appeal after an adverse outcome. This extension was reinforced by the recent decision in *Masri Bin Hussain v Public Prosecutor* [2025] SGCA 9, which the Court applied to hold that seeking to adduce fresh evidence to run a contradictory defence on appeal constitutes an abuse of process. The Court also followed *Public Prosecutor v Gunasilan Rajenthiran* [2022] 3 SLR 861 regarding the appropriate weight to be given to statements made to psychiatrists.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment clarifies that the abuse of process doctrine limiting fresh evidence applications—well-established in civil appeals—applies with equal force in criminal appeals where the accused deliberately withholds evidence at trial for tactical reasons. While the Court acknowledges that criminal appeals receive more latitude under *Azuin*, it confirms that this flexibility does not permit strategic gamesmanship. The reliance on the very recent *Masri* decision suggests the Court of Appeal is actively consolidating this principle across criminal fresh evidence applications.","cited_cases":[]},{"title":"ANDY TAN POH WENG v JEE LEE","citation":"[2026] SGDC 102","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_102","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"A plaintiff who claims accident-related aggravation of pre-existing degenerative conditions bears the burden of proving causation on admissible evidence; expert opinion founded on incorrect factual premises can be rejected, and belated amendment of tax returns to inflate pre-accident income will destroy credibility on loss of earnings claims.","facts_posture":"The plaintiff sued for injuries from a 2010 rear-end collision. He was discharged from hospital the same day with analgesia and neck pain. Fourteen years later, at assessment of damages, he claimed nearly $2 million, alleging the accident aggravated pre-existing spondylolisthesis and cervical spondylosis and caused psychiatric injury. The defendant admitted liability at 95% but disputed causation. The Deputy Registrar awarded $10,608.10. The plaintiff appealed on quantum; the defendant cross-appealed seeking return of the $89,391.90 balance of a $100,000 interim payment.","decided":"All appeals were dismissed. The accident caused only a whiplash injury, chest contusion, and annular tears — not aggravation of degenerative spinal conditions or psychiatric harm. The plaintiff failed to prove causation for the fusion surgery or psychiatric symptoms (which first arose after a subsequent 2011 accident). No loss of earnings was recoverable: the plaintiff's own case s","reasoning":"The Court applied the evidentiary framework from *Britestone Pte Ltd v Smith & Associates Far East, Ltd* [2007] 4 SLR(R) 855: once the defendant showed the plaintiff experienced no back pain for 14 days post-accident and alternative causes existed (heavy manual work, natural degeneration), the burden shifted back to the plaintiff to rebut. He failed. Expert evidence attributing aggravation to the accident rested on four premises, including immediate post-accident symptoms; the absence of contemporaneous complaint undermined the opinion's foundation. The Court endorsed the Deputy Registrar's rejection of expert opinion under *Eu Lim Hoklai v PP* [2011] 3 SLR 167: experts assist but do not decide; judges must evaluate all evidence and are entitled to reject opinion lacking foundation. The plaintiff's credibility was destroyed by ex post facto amendment of 2008–2009 tax returns (trebling reported income) with no employer CPF contributions, and selective private treatment for accident-related claims but public treatment for stage-four cancer. On costs, indemnity costs on the High Court scale were warranted post-Calderbank offer under proportionality principles in *Lin Jian Wei v Lim Eng Hock Peter* [2011] SGCA 29: the plaintiff pursued a $1.95 million claim, and costs must reflect the complexity introduced.","watch":"On registrar's appeals from assessment hearings, fresh evidence is subject to a modified *Ladd v Marshall* test (*Lassiter Ann Masters v To Keng Lam* [2004] 2 SLR(R) 392): the non-availability limb is relaxed, requiring only \"sufficiently strong reasons\" for non-production below, though relevance and credibility remain. Any application for repayment of excess interim payment under O 29 r 17 must be made before judgment is perfected."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court's treatment of authority was largely routine, applying settled principles to the facts before it. On the procedural question of admitting fresh evidence on a registrar's appeal, the Court reconciled the *Ladd v Marshall* framework with the confirmatory jurisdiction recognised in *Lassiter Ann Masters v To Keng Lam*, holding that while the strict *Ladd v Marshall* test applies to final appeals, a judge hearing a registrar's appeal retains discretion to admit fresh evidence as part of the rehearing function. This was reinforced by reference to *COD v COE*, which elaborates on the approach where evidence was available at first instance but not adduced. The Court also applied *Anan Group (Singapore) Pte Ltd v VTB Bank* to confirm that *Ladd v Marshall* need not be rigidly applied in interlocutory contexts, though in this case the evidence was admitted on the basis of the confirmatory jurisdiction rather than any relaxation of the test.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment does not break new ground but provides useful clarification on the interaction between the *Ladd v Marshall* test and the confirmatory jurisdiction on registrar's appeals. The Court's analysis confirms that the rehearing function identified in *Augustine Zacharia Norman* and *Tan Boon Heng v Lau Pang Cheng David* permits the admission of fresh evidence without satisfying all three *Ladd v Marshall* conditions, distinguishing the position from that applicable to final appeals. Otherwise, the judgment is a straightforward application of established principles on damages assessment, costs, and interest.","cited_cases":[]},{"title":"HO REI, JETHRO & Anor  v CHU JIAT BOON TIMOTHY","citation":"[2026] SGDC 100","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_100","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"A party seeking approval under O 9 r 9(7) to file an interlocutory application outside the SAPT regime must state the grounds of the intended application, not merely identify the type of application. However, failure to include grounds in the initial request is not fatal — the court may invite the party to supplement, provided the grounds are communicated to the opposing party and the court before the approval decision.","facts_posture":"The claimants sued for breach of contract and obtained default judgment after the defendant failed to enter appearance. The defendant's solicitors then filed a request for permission to file a setting-aside application under O 9 r 9(7), stating only that it was \"an application to set aside judgment\" to enable the defendant \"to contest the action and allow the matter to be adjudged on the merits.\" The claimants objected, arguing that the request failed to disclose the grounds (e.g., irregular judgment or prima facie defence) and thus did not satisfy the \"essence\" requirement in O 9 r 9(8).","decided":"Deputy Registrar Don Ho held that O 9 r 9(8)'s requirement to \"set out the essence of the intended application\" requires identification of the grounds of the intended application, not just the type of relief sought. Identifying the grounds and explaining why the application is necessary at that stage are distinct but related requirements. Approval was granted because the defendant's solicitors had disclosed the ground (prima facie defence) in subsequent correspondence, bringing both the court and the claimants on notice.","reasoning":"The Court gave \"essence\" its natural meaning: the intrinsic nature or basis of the claim, not merely the label. This interpretation serves the SAPT regime's purposes under O 3 r 1(2): it enables the court to assess necessity meaningfully, allows the opposing party to respond, and filters out frivolous applications without transforming the approval stage into a merits hearing (following *Hertel Singapore Pte Ltd v Cheng Swee Guan* [2025] 4 SLR 1571 at [18], [32]–[34]). A formalistic approach is to be avoided — O 9 r 9(9) permits the court to deal with requests summarily or at case conference, and deficiencies may be cured by supplemental information. The overriding concern is whether the grounds are adequately communicated to enable a proper assessment of necessity.","watch":"The Court observed *obiter* that, save for abuse of process or plainly hopeless applications, it will generally be difficult for a claimant to resist approval for a defendant to file a setting-aside application against a default judgment. This may signal a permissive approach to approval in the setting-aside context specifically."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court's analysis turned principally on *Hertel Singapore Pte Ltd (now known as Altrad Services Singapore Pte Ltd) and another v Cheng Swee Guan and others* [2025] 4 SLR 1571, which it followed to establish that the burden lies on the requesting party to demonstrate that an intended application is necessary at the present stage of proceedings under O 9 r 9(7) of the ROC. The two other cited authorities — *Dorsey James Michael v World Sport Group Pte Ltd* [2013] 3 SLR 354 and *Constitutional Reference No 1 of 1995* [1995] 1 SLR(R) 803 — were invoked only for the familiar proposition that statutory provisions must be read harmoniously with their context and purpose, and do not represent substantive engagement with authority.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without extending or clarifying them. The reliance on *Hertel Singapore* for the governing test under O 9 r 9(7) reflects routine application of recent High Court authority to the facts at hand, with no analytical development of the legal framework or resolution of competing lines of authority.","cited_cases":[]},{"title":"Balbeer Singh Mangat & Anor  v TEMBUSU GROWTH FUND III LTD & 5 Ors","citation":"[2026] SGHC(A) 8","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCA_8","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"An applicant seeking extension of time to appeal after egregious delay — here over 12 months — must furnish cogent reasons for that delay, not merely assert financial difficulties; vague or unsubstantiated explanations, coupled with repeated failure to meet court-ordered deadlines despite the applicant's own representations, will not suffice.","facts_posture":"The applicants (unrepresented bankrupts whose counterclaim had been dismissed) sought extension of time to file notice of appeal, originally due 13 December 2024. They filed three prior summonses before the General Division seeking time extensions, succeeding twice and failing once. The General Division judge had granted them successive indulgences conditioned on paying costs and furnishing security for appeal as required by the Official Assignee. The applicants repeatedly missed deadlines they themselves had proposed, including a personal undertaking to furnish security by 25 June 2025. They obtained the OA's sanction only in October 2025 and filed the present application in December 2025, over a year late.","decided":"The Appellate Division dismissed the application. Where delay exceeds 12 months (or even six months from the last extended deadline), the applicant must provide very good reasons to justify indulgence. Financial difficulties alone are insufficient justification, particularly where the applicant fails to substantiate fundraising efforts or explain why self-imposed deadlines were not met. The intended grounds of appeal must also be non-hopeless; here, the applicants' sole challenge to the finding of no loss (the FTMS share value ground) would be inconsequential because, even if successful, it could not establish causal nexus to the alleged conspiracy.","reasoning":"The Court applied the four-factor test from *Linda Lai* (length of delay, reasons for delay, prospects of success, prejudice), emphasising that the first two factors bear initial scrutiny and that Rules must be obeyed with reasonable diligence. The 12-month delay was \"on any objective measure\" substantial. The applicants' impecuniosity did not excuse delay where they provided no documentary evidence of fundraising attempts, failed to disclose quantum of security required, and exceeded their own proposed deadlines by three months without adequate explanation. On merits, the Court adopted the approach in *Ong Wui Jin* that broad-brush assertions cannot overcome findings of fact, and noted that even success on the sole loss-related ground would leave the conspiracy claim without causal link. The Court distinguished irremediable prejudice (such as irreversible change of position) from merely incurring further costs, though acknowledged respondents' concern about the applicants' ability to satisfy adverse costs orders was addressable through security for costs of the appeal itself.","watch":"The Court's treatment of vague assertions about merits — requiring applicants to explain \"in sufficient detail\" how factual findings could be overturned on appeal — may signal heightened scrutiny of unrepresented litigants' extension applications where delay is substantial and prior indulgences have been granted."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the well-established four-factor test from *Pearson Judith Rosemary v Chen Chien Wen Edwin* [1991] 2 SLR(R) 260 and *Lai Swee Lin Linda v Attorney-General* [2006] 2 SLR(R) 565 for determining whether to grant an extension of time to file an appeal. The most substantive engagement was with *Lee Hsien Loong v Singapore Democratic Party* [2008] 1 SLR(R) 757, which the Court applied for the principle that substantial delays require particularly compelling reasons to justify an extension, and that where delay is lengthy, the other factors must weigh heavily in the applicant's favour. *AD v AE* [2004] 2 SLR(R) 505 was applied to confirm that the threshold for demonstrating merits is low—the intended appeal need only be \"not hopeless\"—though this did not assist the applicant given the Court's assessment of the other factors.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without development or qualification. The Court undertook a conventional application of the four-factor test to the facts, with particular emphasis on the well-established proposition from *Lee Hsien Loong* that lengthy delays demand very good reasons and stronger showings on the remaining factors. No tension with prior authority arose, and the Court did not depart from, narrow, or extend any existing principle.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
