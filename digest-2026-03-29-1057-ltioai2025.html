@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 29 March 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1a2332;--gold:#b8962e;--warm-bg:#f7f5f0;--card-bg:#fff;--text-primary:#1a2332;--text-secondary:#5a6270;--text-tertiary:#8b919a;--border:#e2ddd4;--border-light:#ece8e0;--success:#1a5c38;--success-bg:#e8f5e9;--warning:#78350f;--warning-bg:#fef3c7;--danger:#7f1d1d;--danger-bg:#fce8e8;--info:#164e63;--info-bg:#e0f2f7;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--warm-bg);color:var(--text-primary);font-family:var(--sans);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:780px;margin:0 auto;padding:24px 20px 60px}
+header{border-bottom:3px solid var(--gold);padding-bottom:20px;margin-bottom:28px}
+.header-label{font-size:10px;font-weight:500;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.header-title{font-family:var(--serif);font-size:32px;font-weight:600;color:var(--navy);line-height:1.2}
+.header-meta{font-size:13px;color:var(--text-secondary);margin-top:6px}
+.stats-row{display:flex;gap:24px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.stat-num{font-size:22px;font-weight:500;color:var(--navy);display:block;line-height:1;margin-bottom:2px}
+.stat-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px}
+.search-bar{width:100%;padding:10px 14px 10px 36px;font-size:13px;font-family:var(--sans);border:1px solid var(--border);border-radius:6px;background:var(--card-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238b919a' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E") 12px center no-repeat;margin-bottom:16px;outline:none;color:var(--text-primary)}
+.search-bar:focus{border-color:var(--gold)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.filter-btn{font-size:12px;font-family:var(--sans);padding:5px 14px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer}
+.filter-btn:hover{background:var(--card-bg)}
+.filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filter-count{font-size:10px;opacity:.6;margin-left:4px}
+.case-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.case-card:hover{border-color:var(--gold)}
+.case-card.expanded{box-shadow:0 2px 12px rgba(26,35,50,.06)}
+.case-header{display:flex;align-items:flex-start;padding:14px 18px;cursor:pointer;gap:12px;user-select:none}
+.case-chevron{font-size:11px;color:var(--text-tertiary);min-width:14px;padding-top:4px;transition:transform .2s}
+.case-card.expanded .case-chevron{transform:rotate(90deg)}
+.case-info{flex:1;min-width:0}
+.case-name{font-family:var(--serif);font-size:18px;font-weight:600;font-style:italic;color:var(--navy);line-height:1.3;margin-bottom:2px}
+.case-cite-line{font-size:11px;color:var(--text-tertiary)}
+.case-bottom-line{font-size:13px;color:var(--text-secondary);line-height:1.55;padding:0 18px 10px 44px}
+.case-tags{display:flex;flex-wrap:wrap;gap:5px;padding:2px 18px 14px 44px}
+.tag-topic{font-size:10px;font-weight:500;padding:2px 10px;border-radius:3px;background:var(--success-bg);color:var(--success);text-transform:uppercase;letter-spacing:.3px}
+.tag-shift{font-size:10px;font-weight:500;padding:2px 10px;border-radius:3px;background:var(--warning-bg);color:var(--warning);text-transform:uppercase;letter-spacing:.3px}
+.case-detail{border-top:1px solid var(--border-light);padding:20px;display:none}
+.case-card.expanded .case-detail{display:block}
+.section{margin-bottom:18px}
+.section:last-child{margin-bottom:0}
+.section-heading{font-size:9px;font-weight:500;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.section-text{font-size:13px;color:var(--text-primary);line-height:1.75}
+.auth-box{background:var(--warm-bg);border-radius:6px;padding:14px 16px;margin-top:10px}
+.auth-entry{padding:8px 0;border-bottom:1px solid var(--border-light)}
+.auth-entry:last-child{border-bottom:none}
+.auth-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.auth-name{font-family:var(--serif);font-size:14px;font-style:italic;color:var(--text-primary)}
+.auth-treatment{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.treat-applied{color:var(--info);background:var(--info-bg)}
+.treat-followed{color:var(--success);background:var(--success-bg)}
+.treat-distinguished{color:var(--warning);background:var(--warning-bg)}
+.treat-overruled,.treat-not-followed{color:var(--danger);background:var(--danger-bg)}
+.treat-considered{color:#374151;background:#f3f4f6}
+.treat-cited{color:#3730a3;background:#eef2ff}
+.treat-approved{color:var(--success);background:var(--success-bg)}
+.auth-prop{font-size:12px;color:var(--text-secondary);line-height:1.5;margin-top:3px}
+.case-link{display:block;padding:10px 20px;font-size:12px;font-weight:500;color:var(--gold);text-decoration:none;letter-spacing:.3px;border-top:1px solid var(--border-light)}
+.case-link:hover{background:var(--warm-bg)}
+footer{text-align:center;padding:24px 0;font-size:11px;color:var(--text-tertiary);border-top:1px solid var(--border);margin-top:20px;line-height:1.7}
+.hidden{display:none!important}
+@media(max-width:600px){.container{padding:16px 14px 40px}.header-title{font-size:24px}.case-name{font-size:16px}.case-bottom-line,.case-tags{padding-left:18px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 2","digest_date":"29 March 2026","cases":[{"title":"LEONG YIM LING v MOEY PARK MOON","citation":"[2026] SGHC 57","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_57","matched_topics":["family law"],"law_shifted":true,"summary":{"bottom_line":"Retirement and cessation of employment income do not, without more, constitute material change in circumstances justifying rescission of spousal maintenance obligations. The variation court must assess whether the former husband's overall financial position — including assets, savings and other resources accumulated during employment — renders him incapable of continuing maintenance, not merely whether employment income has ceased.","facts_posture":"The parties divorced in 2013. The ancillary matters order required the husband to pay the wife $4,000 monthly maintenance plus additional sums for travel and medical expenses (totalling $5,150 monthly as varied in 2019). Two prior variation applications by the husband were dismissed. He brought this third application seeking complete rescission on grounds of retirement at age 67 and alleged inability to work. The wife opposed rescission but both parties agreed lump sum maintenance would be appropriate if periodic maintenance continued.","decided":"Pang J dismissed the rescission application but converted the periodic maintenance to lump sum maintenance of $364,800. The Court held the husband had not demonstrated material change in circumstances: despite cessation of employment, he owned five Malaysian properties, had insurance policies worth $121,491, investment accounts exceeding $92,310, CPF withdrawals of $327,381, and bank savings of at least $378,749. The Court rescinded only the obligation to pay 95% of hospital and surgical bills, drawing an adverse inference against the wife for non-compliance with disclosure orders.","reasoning":"The Court applied the established principle from *Yow Mee Lan v Chen Kai Buan* [2000] 2 SLR(R) 659 that a husband's maintenance obligation prima facie continues beyond retirement until the wife's remarriage or either party's death. Retirement is foreseeable at the time ancillary orders are made and therefore cannot itself constitute material change arising after the hearing. The inquiry must focus on whether retirement, considered with overall financial circumstances, renders the husband incapable of fulfilling maintenance obligations. The Court distinguished *VOX v VOY* [2021] SGFC 11 and *VJD v VJE* [2020] SGFC 88, where rescission was granted only after detailed analysis showed the husband lacked continuing sources of income or suffered unexpected early retirement due to ill health. The Court emphasised that funding maintenance from retirement savings is neither punitive nor unreasonable where financial circumstances permit. Arguments that maintenance should not create lifetime dependency were matters properly raised at the ancillary hearing, not in variation proceedings where the original order is presumed appropriate when made (*ATS v ATT* [2016] SGHC 196, *BZD v BZE* [2020] SGCA 1). The Court exercised its power to determine the appropriate multiplicand afresh rather than simply adopt the existing periodic figures, reducing the monthly sum from $4,500 to $3,800 to reflect the adverse inference drawn.","watch":"The Court's treatment of retirement as a foreseeable event at the time of ancillary orders may constrain future variation applications based solely on age and cessation of employment. Practitioners should note the Court's readiness to draw adverse inferences from non-compliance with disclosure orders and give effect to those inferences both by adjusting quantum and rescinding specific maintenance heads."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied *BZD v BZE* [2020] SGCA 1 for the governing test in variation applications: whether the change in circumstances is sufficiently material that it is no longer fair to expect the status quo to remain. This remains the operative standard post-*ATS v ATT* [2016] SGHC 196, which the Court cited to confirm that variation applications are not *de novo* inquiries and carry a presumption that the original order was appropriate when made. On the specific question of retirement as a material change, the Court applied *Yow Mee Lan v Chen Kai Buan* [2000] 2 SLR(R) 659 and *Foo Ah Yan v Chiam Heng Chow* [2012] 2 SLR 506, both establishing that a husband's *prima facie* obligation to maintain his former wife extends beyond retirement and cannot be entirely extinguished by reason of retirement alone.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment applies settled principles without development. The Court confirmed the established position that retirement does not automatically relieve a former husband of maintenance obligations, reinforcing the line of authority running from *Yow Mee Lan* through *Foo Ah Yan*. The application of *Wan Lai Cheng v Quek Seow Kee* [2012] 4 SLR 405 for the multiplier methodology in lump sum maintenance awards was routine.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Law shifted</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '"><div class="case-header" onclick="toggleCard(this)"><span class="case-chevron">&#9654;</span><div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div></div><div class="case-bottom-line">' + (sp.bottom_line || '') + '</div><div class="case-tags">' + topicTags + shiftTag + '</div><div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) { card.classList.remove('hidden'); } else { card.classList.toggle('hidden', !card.dataset.searchable.includes(q)); }
+  });
+});
+</script>
+</body>
+</html>
