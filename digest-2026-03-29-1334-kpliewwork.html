@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 29 March 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+@media (min-width: 1200px) {
+  .page-wrapper { max-width: 1100px; padding: 40px 48px 80px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 60px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 16px 12px 48px; }
+  .header-title { font-size: 20px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 80px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+/* Header */
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  header { padding: 20px 18px; }
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Search and filters */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+/* Case cards */
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.case-chevron {
+  font-size: 10px;
+  color: var(--faint);
+  min-width: 12px;
+  padding-top: 7px;
+  transition: transform 0.15s, color 0.15s;
+}
+.case-card.expanded .case-chevron { transform: rotate(90deg); color: var(--accent); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line {
+  font-size: 12px;
+  color: var(--light);
+}
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 50px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 50px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+/* Expanded detail */
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text {
+  font-size: 14px;
+  color: var(--dark);
+  line-height: 1.8;
+}
+
+/* Authorities */
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.auth-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--dark);
+}
+
+.auth-treatment {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop {
+  font-size: 12px;
+  color: var(--light);
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+.case-link {
+  display: block;
+  padding: 14px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule);
+  background: var(--white);
+  transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer {
+  text-align: center;
+  padding: 28px 0;
+  font-size: 12px;
+  color: var(--light);
+  margin-top: 28px;
+  line-height: 1.7;
+}
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<div class="toolbar">
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+</div>
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 1","digest_date":"29 March 2026","cases":[{"title":"CHUA JUN YANG v KANG MAY TENG, MARIA OLIVIA","citation":"[2026] SGHC 63","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_63","matched_topics":["tort"],"law_shifted":true,"summary":{"bottom_line":"An uncorroborated allegation of sexual assault may fail even on the civil standard where the complainant's conduct after the alleged incident — including continued intimate contact, romantic overtures, and attempts to resume the relationship — is not credibly explained by the evidence. The High Court clarified that the \"unusually convincing\" standard applies in civil cases involving uncorroborated evidence of sexual misconduct, though the burden of proof remains the balance of probabilities.","facts_posture":"The respondent alleged that in July 2016, the appellant (her ex-colleague and former intimate partner) digitally penetrated her without consent after she invited him to her apartment but changed her mind. She made a police report only in March 2021, nearly five years later; the police took no action. She then sued for battery. The District Judge found in her favour and awarded $53,697.39 in damages. The appellant appealed, arguing the DJ erred in her analysis of corroboration and credibility.","decided":"The appeal was allowed and the respondent's claim dismissed. The Court found that the respondent had not proved the alleged sexual assault on a balance of probabilities. The DJ had wrongly concluded that contemporaneous WhatsApp messages corroborated the assault itself. The appellant's message \"I apologize that I got out of control AGAIN\" referred to loss of emotional control (leading to argument), not physical control (leading to assault), as s","reasoning":"Following *Alwie Handoyo v Tjong Very Sumito* [2013] 4 SLR 308, the Court confirmed that cogent evidence is required for serious allegations, but there is no third standard of proof. It adopted the reasoning in *WOC v WOD* [2023] SGFC 22 that the \"unusually convincing\" standard from criminal cases (*Public Prosecutor v GCK* [2020] 1 SLR 486) applies to uncorroborated evidence in civil cases as a heuristic tool, ensuring rigorous assessment. The Court emphasised, following *Thangarajan Elanchezhian v Public Prosecutor* [2024] 6 SLR 507, that victims' reactions vary and delay does not automatically undermine credibility; however, explanations for conduct must be assessed in two steps: (1) whether the explanation is accepted as true, and (2) whether it actually explains the conduct. Here, the respondent's explanations (self-blame, trying to normalise the relationship, inability to avoid the appellant) were rejected as hollow. Her active pursuit of the appellant's company, romantic advances, invitation for him to spend the night at her place in September 2016, and attempt in January 2017 to resume their relationship (after hearing he was dating someone else) were unexplained and inconsistent with the alleged assault. The Court also found internal inconsistency: the respondent's affidavit stated the appellant climbed into bed \"in a matter of seconds\" before she could react, but her letters and testimony revealed she had warned him not to let his dirty clothes touch her bed as he approached, suggesting she anticipated or realised he was getting onto the bed. The DJ's reliance on the 1 July 2016 incident to support corroboration was untenable; that incident involved only verbal argument, not physical overstepping.","watch":"The Court expressly adopted the \"unusually convincing\" standard as applicable to civil cases involving uncorroborated sexual misconduct allegations, a position not previously articulated by the High Court outside the District Courts. Whether this formulation gains wider acceptance or generates appellate scrutiny remains to be seen, particularly given its association with the criminal burden of proof."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established appellate review framework from *Tat Seng Machine Movers Pte Ltd v Orix Leasing Singapore Ltd* [2009] 4 SLR(R) 1101, emphasising that while findings of fact will not be disturbed unless plainly wrong, the court draws its own inferences from primary facts. On the \"unusually convincing\" standard, the Court followed *Public Prosecutor v GCK* [2020] 1 SLR 486, treating it not as a distinct burden of proof but as a heuristic tool requiring rigorous assessment of uncorroborated evidence—a characterisation reinforced by reference to *Alwie Handoyo v Tjong Very Sumito* [2013] 4 SLR 308, which confirmed there are only two burdens of proof in Singapore law. The Court's reliance on *AOF v Public Prosecutor* [2012] 3 SLR 34 is analytically significant: while *AOF* articulated the \"unusually convincing\" standard broadly for uncorroborated evidence forming the sole basis of conviction, the Court read it through the lens of *GCK*'s more nuanced formulation, treating \"unusually convincing\" as a qualitative descriptor rather than a free-standing legal test.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without extending them. The Court's synthesis of *AOF*, *GCK*, and the recent *GII v Public Prosecutor* [2025] SGHC 38 confirms the current orthodoxy: the \"unusually convincing\" formulation is descriptive, not prescriptive, and operates within the ordinary civil or criminal burden rather than creating a tertiary standard. No new ground is broken.","cited_cases":[{"case_name":"ATS v ATT","citation":"[2016] SGHC 196","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A variation application under s 72 and/or s 118 of the Women's Charter is not a de novo application and it is presumed that the final maintenance order was appropriate at the time it was made."},{"case_name":"BZD v BZE","citation":"[2020] SGCA 1","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"The inquiry in a variation application is whether the change is sufficiently material such that it is no longer fair to expect the status quo to remain."},{"case_name":"Tan Sue-Ann Melissa v Lim Siang Bok Dennis","citation":"[2004] 3 SLR(R) 376","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"The factors to be examined when the 'change in circumstances' condition is invoked as a ground for varying a maintenance order."},{"case_name":"Foo Ah Yan v Chiam Heng Chow","citation":"[2012] 2 SLR 506","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A husband is prima facie obliged to maintain his former wife beyond his retirement and up to the former wife's remarriage or the death of either party."},{"case_name":"Yow Mee Lan v Chen Kai Buan","citation":"[2000] 2 SLR(R) 659","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"A husband paying monthly maintenance could not expect to be relieved entirely from this obligation by reason of retirement."}]},{"title":"HO REI, JETHRO & Anor  v CHU JIAT BOON TIMOTHY","citation":"[2026] SGDC 100","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_100","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"When seeking the court's approval under O 9 r 9(7) to file an interlocutory application outside the single application pending trial regime, a party must state the *grounds* on which the intended application is based — identifying the application type alone is insufficient to satisfy the \"essence\" requirement in O 9 r 9(8).","facts_posture":"The claimants obtained default judgment against the defendant for investment-related sums. The defendant's solicitors subsequently filed a request for permission to file a setting-aside application. The initial request identified the application type but did not state the grounds. The grounds (that a prima facie defence existed) were later disclosed in correspondence annexed to a further request. The claimants objected, arguing the request failed to state the \"essence\" of the intended application as required by O 9 r 9(8).","decided":"The Court held that O 9 r 9(8) requires a requesting party to identify the *grounds* for the intended application when seeking approval to file outside the SAPT regime. Merely identifying the application type does not suffice.","reasoning":"The Court applied a purposive interpretation to O 9 r 9(8), noting that \"essence\" in its ordinary meaning encompasses the intrinsic nature or basis of something, not merely the relief sought. Requiring identification of grounds serves multiple functions: it enables the court to assess necessity meaningfully, allows opposing parties to respond, and filters frivolous applications early. This interpretation aligns with the SAPT regime's purpose of streamlining pre-trial processes and avoiding piecemeal litigation. The Court followed *Hertel Singapore Pte Ltd v Cheng Swee Guan* [2025] 4 SLR 1571 in holding that the approval stage does not require detailed exposition of merits, but distinguished between identifying grounds (required) and arguing them (inappropriate at this stage). The Court rejected a \"two-track\" approach where grounds would be unnecessary for certain application types.","watch":"The Court indicated that failure to state grounds in the initial request need not be fatal — the court may invite supplementation rather than summarily dismissing the request, consistent with avoiding procedural formalism under O 3 r 1(2). Deputy Registrar Ho also observed, in obiter, that save for abuse or plainly hopeless cases, resisting approval for setting-aside applications will generally be difficult for claimants."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court followed *Hertel Singapore Pte Ltd v Cheng Swee Guan* [2025] 4 SLR 1571, applying its holding that the burden rests on the requesting party to demonstrate necessity when seeking approval under O 9 r 9(7) of the Rules of Court 2021 for service outside jurisdiction. The reliance on *Hertel* is significant as it represents a recent General Division pronouncement clarifying the threshold applicable to applications at the approval stage, though the Court does not indicate whether it regarded this as settling what had previously been an open question. The Court also applied *Dorsey James Michael v World Sport Group Pte Ltd* [2013] 3 SLR 354 and *Constitutional Reference No 1 of 1995* [1995] 1 SLR(R) 803, but both citations were entirely conventional — each supported the uncontroversial proposition that statutory provisions must be interpreted purposively in light of their context and legislative objects.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment straightforwardly applies existing authority to its facts. The Court's treatment of *Hertel* suggests that the necessity requirement under O 9 r 9(7) is now settled at General Division level, but the judgment does not indicate whether competing lines of authority previously existed or whether *Hertel* itself resolved any prior uncertainty. No new ground is broken.","cited_cases":[]},{"title":"Balbeer Singh Mangat & Anor  v TEMBUSU GROWTH FUND III LTD & 5 Ors","citation":"[2026] SGHC(A) 8","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCA_8","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"The Appellate Division refuses to indulge applicants who repeatedly fail to meet deadlines they themselves proposed, even where delay is attributable to difficulty raising funds as undischarged bankrupts. An applicant seeking extension of time to appeal must provide credible evidence supporting proposed timelines; vague explanations and broken undertakings will not satisfy the court's scrutiny, particularly where delay exceeds 12 months.","facts_posture":"The applicants, undischarged bankrupts, filed this application 13 months after the original deadline to appeal the dismissal of their counterclaim in conspiracy and misrepresentation. They had previously obtained three extensions from the General Division to file their appeal, conditional on raising funds to pay outstanding costs and furnish security for the Official Assignee. Despite repeated assurances — including a personal undertaking that funds would be provided by 25 June 2025 — the applicants failed to meet multiple deadlines, ultimately obtaining the OA's sanction only in October 2025. They sought a further four-week extension to file their notice of appeal.","decided":"The Appellate Division dismissed the application. Applying the four-factor test from *Linda Lai* — length of delay, reasons for delay, prospects of success, and prejudice — the Court held that exceptional delay (over 12 months, or six months from the last court-imposed deadline) required compelling justification which the applicants failed to provide. Financial difficulties alone do not justify extension of time. Even if delay were excusable, the intended appeal had no realistic prospect of success because the applicants did not challenge findings fatal to their claims and failed to demonstrate","reasoning":"The Court emphasised that lengthier delay attracts heightened scrutiny of the reasons advanced. Here, the applicants had been informed of the security deposit requirement from November 2024 and given a final quantum in February 2025, yet took eight months to raise what they themselves characterised as \"a small sum\" relative to the over $2 million already raised. No credible evidence was provided to substantiate alleged fundraising difficulties; the applicants disclosed neither correspondence with funders nor details of attempts. Critically, they repeatedly proposed deadlines they could not meet, breaching their own undertakings without adequate explanation. On the merits, the Court found the appeal hopeless: the applicants' sole challenge to the finding of no proven loss (the FTMS Ground) would not address the anterior finding that liquidation was not pursuant to conspiracy, meaning success on that ground would be inconsequential. Similarly, challenges to findings that representations were not made amounted to bare assertions unsupported by reference to evidence or identification of errors in the trial judge's reasoning — insufficient to demonstrate any realistic prospect of disturbing factual findings on appeal, applying the guidance in *Ong Wui Jin*.","watch":"The judgment reiterates established principles without developing new law, but practitioners should note the Court's particularly stringent approach to repeated failures to meet self-proposed deadlines accompanied by personal undertakings. The decision also confirms that selective reproduction of legal opinions without disclosure of source or full content will attract no weight in assessing appeal merits."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established four-factor test for extension of time applications from *Lai Swee Lin Linda v Attorney-General* [2006] 2 SLR(R) 565 and *Pearson Judith Rosemary v Chen Chien Wen Edwin* [1991] 2 SLR(R) 260 without modification. More significantly, it relied on *Lee Hsien Loong v Singapore Democratic Party* [2008] 1 SLR(R) 757 and *AD v AE* [2004] 2 SLR(R) 505 for the hierarchical weighting of these factors, treating length of delay and reasons for delay as threshold considerations and prospects of success and prejudice as qualifying factors. The Court's repeated citation of *Falmac Ltd v Cheng Ji Lai Charlie* [2014] 4 SLR 202 underscored the principle that lengthier delays demand very good reasons for indulgence, which appears to have been determinative in the application of the framework to the facts.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without developing them. The Court followed the orthodox hierarchy of factors in extension of time applications established in the cited Court of Appeal authorities, using them as a framework for fact-intensive evaluation. No new tests were articulated, no qualifications introduced, and no prior statements of principle refined or narrowed.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '"><div class="case-header" onclick="toggleCard(this)"><span class="case-chevron">&#9654;</span><div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div></div><div class="case-bottom-line">' + (sp.bottom_line || '') + '</div><div class="case-tags">' + topicTags + shiftTag + '</div><div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) { card.classList.remove('hidden'); } else { card.classList.toggle('hidden', !card.dataset.searchable.includes(q)); }
+  });
+});
+</script>
+</body>
+</html>
