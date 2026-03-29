@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 29 March 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 1","digest_date":"29 March 2026","cases":[{"title":"CHUA JUN YANG v KANG MAY TENG, MARIA OLIVIA","citation":"[2026] SGHC 63","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_63","matched_topics":["tort"],"law_shifted":false,"summary":{"bottom_line":"An allegation of digital sexual penetration was not proved on a balance of probabilities where the complainant's contemporaneous conduct — including initiating frequent contact, inviting the defendant to spend the night, making romantic advances, and attempting to restart the relationship — was inconsistent with the alleged assault and unexplained by her evidence.","facts_posture":"The respondent alleged the appellant digitally penetrated her without consent in July 2016 after they left a nightclub. They had been colleagues in a casual sexual relationship, though disputed whether it had ended. She did not complain until January 2018, wrote detailed letters in November 2020, and filed a police report in March 2021. Police took no action. She sued for battery. The District Judge awarded $53,697.39 in damages. The appellant appealed.","decided":"The appeal was allowed and the claim dismissed. The respondent had not proved the alleged sexual assault on a balance of probabilities. The District Judge had erred in finding the respondent's evidence corroborated by the appellant's text message apologising for getting \"out of control AGAIN\" — that message referred to loss of emotional control during an argument, not physical loss of control. The respondent's account was materially inconsistent: her AEIC claimed the appellant climbed onto her bed \"in a matter of seconds\" before she could react, but contemporaneous letters s","reasoning":"The Court applied the civil standard of proof but noted that cogent evidence is required for serious allegations. It held that the \"unusually convincing\" standard (a heuristic tool from criminal law) applies equally in civil cases involving uncorroborated evidence of sexual misconduct, though the burden remains balance of probabilities. The Court rejected the District Judge's finding of corroboration: the appellant's prior \"loss of control\" incident on 1 July 2016 involved an emotional outburst over touching the respondent's shoulder at work, not physical misconduct. The respondent's text message hours after the alleged assault — \"we could have enjoyed each other last night and had fun and I wanted to\" — was wholly inconsistent with sexual assault and unexplained. Her subsequent conduct between August 2016 and January 2017 — seeking the appellant's company daily, greeting him in undergarments, telling him she feared \"meaning nothing\" to him, and attempting to restart their relationship when she learned he was dating someone else — was active behaviour inconsistent with the allegation. The Court found her explanations (warped belief that resuming the relationship would make the assault not matter; inability to avoid him; not understanding the assault's gravity) contradicted by objective evidence and not credible. The Court distinguished cases recognising no typical victim response: here the issue was not passive delay but active conduct affirmatively inconsistent with the claim.","watch":"The Court's acceptance that the \"unusually convincing\" standard applies in civil sexual misconduct cases may influence trial judges' approach to such claims, though practitioners should note the standard itself does not alter the burden of proof and applies only to uncorroborated evidence."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the standard appellate approach to factual findings from *Tat Seng Machine Movers Pte Ltd v Orix Leasing Singapore Ltd* [2009] 4 SLR(R) 1101, but the more significant engagement concerned the \"unusually convincing\" standard for uncorroborated evidence. *Alwie Handoyo v Tjong Very Sumito* [2013] 4 SLR 308 was applied for the uncontroversial proposition that there is no intermediate burden of proof between the civil and criminal standards. The Court's treatment of *AOF v Public Prosecutor* [2012] 3 SLR 34 and *Public Prosecutor v GCK* [2020] 1 SLR 486 is more analytically significant: it relied on *GCK* to characterise the \"unusually convincing\" standard not as a discrete legal test but as a heuristic tool for rigorous assessment of uncorroborated testimony, thereby following the Court of Appeal's move away from treating it as a freestanding evidential threshold. *Thangarajan Elanchezhian v Public Prosecutor* [2024] 6 SLR 507 was applied for the now well-established principle that victims of sexual offences do not exhibit uniform behavioural responses.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment does not develop the law. It applies the settled approach in *GCK* that the \"unusually convincing\" formulation serves as an analytical framework rather than a legal standard distinct from the criminal burden of proof, and uses that framework to assess credibility on the facts before it.","cited_cases":[{"case_name":"ATS v ATT","citation":"[2016] SGHC 196","court":"High Court","jurisdiction":"Singapore","treatment":"followed","proposition":"A variation application under s 72 and/or s 118 of the Women's Charter is not a de novo application and it is presumed that the final maintenance order was appropriate at the time it was made."},{"case_name":"BZD v BZE","citation":"[2020] SGCA 1","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"followed","proposition":"The inquiry in a variation application is whether the change is sufficiently material such that it is no longer fair to expect the status quo to remain."},{"case_name":"Tan Sue-Ann Melissa v Lim Siang Bok Dennis","citation":"[2004] 3 SLR(R) 376","court":"High Court","jurisdiction":"Singapore","treatment":"cited","proposition":"Factors to consider when examining whether a change in circumstances is sufficient to justify variation of a maintenance order."},{"case_name":"Foo Ah Yan v Chiam Heng Chow","citation":"[2012] 2 SLR 506","court":"High Court","jurisdiction":"Singapore","treatment":"followed","proposition":"A husband is prima facie obliged to maintain his former wife beyond his retirement and up to the former wife's remarriage or the death of either party."},{"case_name":"Yow Mee Lan v Chen Kai Buan","citation":"[2000] 2 SLR(R) 659","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"followed","proposition":"A husband paying monthly maintenance could not expect to be relieved entirely from this obligation by reason of retirement."},{"case_name":"VOX v VOY","citation":"[2021] SGFC 11","court":"Family Court","jurisdiction":"Singapore","treatment":"distinguished","proposition":"An ex-husband's retirement and consequential loss in income and income earning capacity may amount to a material change in circumstances under s 118 of the Women's Charter."},{"case_name":"VJD v VJE","citation":"[2020] SGFC 88","court":"Family Court","jurisdiction":"Singapore","treatment":"distinguished","proposition":"Rescission of husband's spousal maintenance obligations may be justified based on depleting financial assets, lack of income, advanced years and ill-health precluding employment."},{"case_name":"Wong Lai Kum v Lim Khee Tee","citation":"[2012] SGHC 151","court":"High Court","jurisdiction":"Singapore","treatment":"considered","proposition":"Loss of employment due to retirement may constitute a material adverse change in financial circumstances, but this finding must be based on evidence of inability to pay maintenance."},{"case_name":"DIL v DIM","citation":"[2024] SGHC 139","court":"High Court","jurisdiction":"Singapore","treatment":"followed","proposition":"When considering variation of maintenance due to retirement, the court must undertake a detailed analysis of the husband's ability to pay having regard to his assets and obligations."},{"case_name":"Wan Lai Cheng v Quek Seow Kee and another appeal and another matter","citation":"[2012] 4 SLR 405","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"Formula for calculating the appropriate multiplier for a lump sum maintenance award."},{"case_name":"Ong Chen Leng v Tan Sau Poo","citation":"[1993] 2 SLR(R) 545","court":"High Court","jurisdiction":"Singapore","treatment":"cited","proposition":"Method for calculating the appropriate multiplier for a lump sum maintenance award."},{"case_name":"WZF v WZG","citation":"[2025] SGHCF 1","court":"Family Division of the High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"An adverse inference may be drawn when there is a prima facie case of concealment and the person has particular access to the information they are said to be hiding."},{"case_name":"BPC v BPB and another appeal","citation":"[2019] 1 SLR 608","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"cited","proposition":"Criteria for drawing an adverse inference in cases of concealment of evidence."},{"case_name":"Tan Teck Koon v Tong Guat Hwa","citation":"[2016] SGHCF 2","court":"Family Division of the High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"An adverse inference may be drawn when a person withholds production of evidence without good reasons for doing so."}]},{"title":"HO REI, JETHRO & Anor  v CHU JIAT BOON TIMOTHY","citation":"[2026] SGDC 100","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_100","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"A party seeking approval under O 9 r 9(7) ROC 2021 to file an application outside the single application pending trial (SAPT) regime must state the *grounds* of the intended application, not merely its type. However, failure to include grounds in the initial request is not fatal — the court may invite supplementation rather than summarily dismiss.","facts_posture":"The claimants obtained default judgment against the defendant. The defendant's solicitors filed a request for permission to file a setting-aside application, stating only that it was an \"Application to set aside Judgment for failing to file Notice of Intention to Contest or Not Contest\" and that it was necessary \"to enable the Defendant to contest the action\". The claimants objected, arguing the request did not disclose the *grounds* for setting aside (whether irregularity or prima facie defence). The defendant later clarified by email that he relied on the existence of a prima facie defence.","decided":"Deputy Registrar Don Ho held that O 9 r 9(8) requires a requesting party to identify the *grounds* of the intended application when seeking approval to file outside the SAPT regime. The word \"essence\" means more than merely naming the application type; it encompasses the basis upon which relief is claimed. Nevertheless, the court granted approval because the grounds were disclosed in subsequent correspondence, ensuring both court and opposing party were apprised before determination.","reasoning":"The Court gave \"essence\" its ordinary meaning — the intrinsic nature or character of something — and held this necessarily includes the grounds, not just the relief sought. This interpretation serves the SAPT regime's objectives: it allows the court to assess necessity meaningfully, enables the opposing party to respond, and filters potentially frivolous applications without requiring detailed argument on the merits (following *Hertel Singapore Pte Ltd v Cheng Swee Guan* [2025] 4 SLR 1571 at [18], [32]–[34]). The Court rejected a \"two-track\" approach where grounds might be dispensed with for certain application types (e.g., setting aside default judgments). A failure to state grounds initially is not fatal — O 9 r 9(9) permits the court to invite supplementation rather than adopt a pedantic approach, consistent with the Ideals in O 3 r 1(2).","watch":"The decision leaves open how much detail is required when stating grounds — the line between \"identifying\" grounds and impermissibly \"arguing\" merits will require further refinement in future cases."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied *Hertel Singapore Pte Ltd (now known as Altrad Services Singapore Pte Ltd) and another v Cheng Swee Guan and others* [2025] 4 SLR 1571 as the governing authority for the \"necessity\" requirement under O 9 r 9(7) of the Rules of Court, confirming that the requesting party bears the burden of demonstrating that the intended application is necessary at the present stage of proceedings. The remaining citations — *Dorsey James Michael v World Sport Group Pte Ltd* [2013] 3 SLR 354 and *Constitutional Reference No 1 of 1995* [1995] 1 SLR(R) 803 — were invoked only for the uncontroversial proposition that statutory provisions must be read purposively in their context, a standard canon of construction that required no elaboration.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without developing them. It is a straightforward application of the recently-clarified test from *Hertel Singapore* to the facts at hand, confirming that the necessity threshold under O 9 r 9(7) requires substantive justification by the applicant and is not a mere formality.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
