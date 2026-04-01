@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 1 April 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 3","digest_date":"1 April 2026","cases":[{"title":"LEE YIH KANG v HSU SHIH HSUN","citation":"[2026] SGHC(A) 9","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCA_9","matched_topics":["insolvency law"],"law_shifted":true,"summary":{"bottom_line":"An application to set aside a statutory demand based on duress will fail where the evidence shows the debtor volunteered the guarantee without any demand, was twice warned to reconsider, had ample time and opportunity to seek legal advice, and deliberately omitted exculpatory evidence from the creditor's communications.","facts_posture":"The respondent obtained Hong Kong judgments against Infinity Capital Group Limited. The appellant, who had a business relationship with Infinity's sole director, volunteered to guarantee Infinity's debt through a deed providing for A$1.5 million to be paid in instalments. When the first instalment was not paid, the respondent served a statutory demand for the full sum plus interest. The appellant applied to set aside the statutory demand, arguing duress and invalid execution. The Assistant Registrar and General Division dismissed the applications. This is an appeal to the Appellate Division.","decided":"The Appellate Division dismissed the appeal, holding that the appellant failed to raise even a triable issue on duress or invalid execution. On duress: there was no illegitimate pressure where the creditor made no demand, twice cautioned the debtor against giving the guarantee, and gave him eight days and express opportunity to seek independent advice before signing. On execution: a deed does not require witness attestation to be valid and enforceable unless statute or the deed's own terms mandate it; empty signature boxes are insufficient to impose such a requirement.","reasoning":"The Court applied the two-limb test from *Tam Tak Chuen v Khairul bin Abdul Rahman* [2009] 2 SLR(R) 240: illegitimate pressure and compulsion of will. Both limbs failed on the facts. Critically, the creditor never asked the appellant to guarantee anything — the appellant volunteered at a drinking session on 19 January 2025. The creditor then warned him twice (21 and 22 January) to \"think this through carefully\" because the sum was substantial, to which the appellant replied the creditor was \"thinking in [his] best interest.\" When sent the draft deed on 7 February, the appellant was expressly told he was \"at liberty to seek independent advice,\" yet signed it eight days later without protest, and subsequently sought extensions to pay without raising duress until after the statutory demand was served. The Court found the appellant had deliberately omitted these exculpatory messages from his supporting affidavit — first claiming deletion \"out of embarrassment,\" then blaming \"selective and messy presentation\" by prior solicitors. The Court distinguished *Zhang Jinhua v Yip Zhao Lin* [2024] 5 SLR 1046 on the facts: there, the respondent faced grave continuing threats (including harassment leading to another victim's suicide), alleged he was unaware of the deed's contents, and the deed was signed under immediate pressure; here, the opposite obtained. On execution, the Court held there is no requirement at law for attesting witnesses save where statute applies, citing *Bank of China Limited (Singapore Branch) v Huang Ziqiang* [2014] SGHC 245 at [43].","watch":"The Court's finding that deliberate non-disclosure of exculpatory evidence undermines bona fides was made without expressly addressing whether such conduct alone could justify dismissal under r 68(2)(e) of the PIR. The judgment also leaves open how courts will treat duress allegations where threats target a third party whose reputation matters commercially to the guarantor, though the facts here provided no evidential basis for such an argument."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the threshold test from *Mohd Zain bin Abdullah v Chimbusco International Petroleum (Singapore) Pte Ltd* [2014] 2 SLR 446, confirming that \"grounds which appear to the court to be substantial\" under r 68(2)(b) of the Personal Insolvency Rules sets a higher bar than a \"genuine triable issue\". The most substantive engagement was with *Zhang Jinhua v Yip Zhao Lin* [2024] 5 SLR 1046, which the Court distinguished on the basis that the respondent there had access to legal advice throughout negotiations, whereas the present applicant had no such advantage and faced immediate threats to deprive her of her home. On the elements of duress, the Court applied the two-limb framework from the Court of Appeal's decision in *Tam Tak Chuen v Khairul bin Abdul Rahman* [2009] 2 SLR(R) 240, which requires both pressure amounting to compulsion of will and illegitimacy of that pressure. The Court also invoked the nineteenth-century authority *Williams v Bayley* (1866) LR 1 HL 200 to confirm that duress may be established where the threat is directed at a third party (here, the applicant's elderly mother) rather than the contracting party herself.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment does not materially alter the law but clarifies the application of duress principles to guarantees signed under threats directed at vulnerable third parties. By distinguishing *Zhang Jinhua*, the Court confirms that the absence of independent legal advice and the immediacy of threats to family members can together constitute substantial grounds for challenging a guarantee, even where the guarantor is a director of the debtor company.","cited_cases":[{"case_name":"Tan Yok Koon v Tan Choo Suan and another and other appeals","citation":"[2017] 1 SLR 654","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"Intention is a subjective state of mind that can be inferred from objective surrounding circumstances"},{"case_name":"Teo Song Kheng v Teo Poh Hoon","citation":"[2020] SGHC 47","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"Three requirements for an inter vivos gift of chattels: intention to relinquish, certainty of subject matter, and delivery"}]},{"title":"STEVEN KURNIAWAN PRAYITNO v OH CHIN ANN & 2 Ors","citation":"[2026] SGHC 70","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_70","matched_topics":["contract","bailment"],"law_shifted":true,"summary":{"bottom_line":"A bailee who sells the bailor's goods without permission commits a breach of bailment even where the bailor has failed to reimburse storage costs, unless there is a clear contractual right to sell. Silence or acquiescence in the face of threats to auction goods is insufficient to vary the bailment terms to permit sale. Being named as consignee on a bill of lading does not, without more, create a bailee relationship if the named party never voluntarily assumed possession.","facts_posture":"The plaintiff, an Indonesian businessman, engaged the first and second defendants to import 14 antique cars from the UK via Singapore for onward export to Indonesia. Delays in obtaining Indonesian permits led to mounting storage costs in Singapore. The defendants sold all 14 cars between August 2018 and November 2019, claiming a right to do so for non-payment of storage fees. The plaintiff sued all three defendants (the third having been mistakenly named consignee for two cars) for breach of bailment duties and contract. The trial was bifurcated; this judgment addresses liability only.","decided":"The first and second defendants breached their duties as bailees and the second defendant breached contract by selling 13 of the plaintiff's cars (excluding one Mercedes which the plaintiff had waived his claim over by accepting a prior settlement that accounted for its sale). The parties' oral agreement in 2016 did not give the defendants the right to sell the cars to recover storage fees, nor was such a right subsequently agreed by conduct or variation. A later oral agreement in July 2019 for the return of the remaining cars in exchange for payment of outstanding fees created concurrent obligations; the defendants' refusal to perform entitled the plaintiff to suspend payment. The third defendant was not liable as he never voluntarily assumed possession of the goods despite being named consignee.","reasoning":"The Court held that a bailee's common law duties can only be excluded by express stipulation clearly brought home to and accepted by the bailor. The defendants' reliance on the plaintiff's silence in response to threats of auction fell far short of this standard. The 2016 oral agreement, construed against prior dealings, required the plaintiff to reimburse storage costs only after the cars reached Indonesia; any goodwill payments made earlier did not convert this into an obligation to pay regularly during storage. The Court found the first defendant's evidence on a purported right to sell inherently incredible, particularly his denial (contradicted by contemporaneous WhatsApp messages and his own pleadings) of a July 2019 meeting at which a settlement was discussed. On the evidence, that July 2019 agreement created concurrent obligations: the defendants were to transfer the cars in exchange for payment of the settlement sum. The defendants' subsequent sale of the remaining cars was a repudiatory breach. As to the third defendant, bailment requires voluntary assumption of possession. Being mistakenly named as consignee, without knowledge or participation, was insufficient. The first defendant's fabrication of an authorisation letter using the third defendant's stamp to collect the cars confirmed the third defendant never came into possession.","watch":"The Court's extended obiter remarks on the first defendant treating the second defendant as his \"personal piggy bank\" and siphoning sale proceeds suggest the corporate veil might well have been pierced had the plaintiff needed to rely on that argument. The Court did not need to reach it given the first defendant's admission of joint bailee status, but the observations may embolden future applications where a controlling mind diverts company assets."},"judicial_treatment":"## JUDICIAL TREATMENT\n\n### AUTHORITIES THAT MATTER\n\nThe Court applied the Court of Appeal's decision in *Ma Hongjin v SCP Holdings Pte Ltd* [2021] 1 SLR 304 as the governing framework for contractual variation, affirming that fresh consideration is required unless the parties had agreed to dispense with that requirement at contract formation. *RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd* [2007] 4 SLR(R) 413 was applied for the established test of repudiatory breach—conduct that deprives the other party of substantially the whole benefit of the contract. On bailment, the Court relied on *Alwie Handoyo v Tjong Very Sumito* [2013] 4 SLR 308 and the recent *The \"Jeil Crystal\"* [2024] 4 SLR 1691, applying the principle that bailment requires a voluntary assumption of possession of another's goods, with the Court emphasising that knowing and willing possession is essential. The citation of *Felthouse v Bindley* (1862) 11 CB (NS) 869 for the uncontroversial proposition that unilateral variation is ineffective without acceptance is routine and unexceptional.\n\n### DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles to the facts without developing the law in any meaningful respect. The treatment of *Ma Hongjin* on variation, *RDC Concrete* on repudiation, and *Alwie Handoyo* alongside *The \"Jeil Crystal\"* on bailment represents straightforward application of established doctrine rather than any extension, qualification, or departure from existing authority.","cited_cases":[]},{"title":"DSQ v DSR","citation":"[2026] SGHC 67","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_67","matched_topics":["arbitration"],"law_shifted":true,"summary":{"bottom_line":"A party who fails to challenge a tribunal's preliminary ruling on jurisdiction within 30 days under Art 16(3) of the Model Law and s 10(3) of the IAA cannot later apply to set aside the award on the same jurisdictional ground. The Court confirmed that these provisions have general preclusive effect for participating parties, following *Rakna Arakshaka Lanka Ltd v Avant Garde Maritime Services (Pte) Ltd* [2019] 2 SLR 131. Non-compliance with pre-arbitral dispute resolution procedures is generally a matter of admissibility (for the tribunal to decide), not jurisdiction (reviewable by the court).","facts_posture":"The parties were employer and contractor under a FIDIC-based railway construction contract. Disputes arose over, among other things, compliance with the contract's multi-tiered dispute resolution mechanism requiring referral to a Dispute Adjudication Board before arbitration. The tribunal issued Procedural Order No 5 (PO5) ruling as a preliminary question that it had jurisdiction. The employer did not apply to court under Art 16(3) or s 10(3) within 30 days. After the tribunal issued a final award awarding sums to the contractor, the employer applied to set aside on grounds of lack of jurisdiction and breach of natural justice.","decided":"The setting-aside application was dismissed in full. First, Art 16(3) of the Model Law and s 10(3) of the IAA applied because the tribunal ruled as a preliminary question that it had jurisdiction in PO5. Second, those provisions have general preclusive effect: the employer, having participated throughout and not challenged the preliminary ruling within 30 days, was precluded from raising the same jurisdictional objection when seeking to set aside the award. Third, the employer's objection—that the contractor failed to comply with pre-arbitral DAB procedures—was in any event a matter of admissibility, not jurisdiction, following the analysis in *DRO v DRP* [2025] SGHC 255. Fourth, all four natural justice complaints failed, including infra petita challenges where the tribunal had addressed the points or where no real prejudice was s","reasoning":"The Court treated *Rakna* as binding authority that Art 16(3) has general preclusive effect. It rejected the employer's submission that *Rakna*'s reasoning was obiter, applying the test from *Cross & Harris*: a rule is ratio decidendi if expressly or impliedly treated as a necessary step in reaching the conclusion. In *Rakna*, the Court of Appeal held that Art 16(3) has general preclusive effect but carved out an exception for non-participating respondents; both holdings were necessary steps in allowing the appeal. The Court followed the Court of Appeal's approval of the international consensus supporting preclusion and its policy rationale: avoiding wastage of resources by requiring jurisdictional challenges to be brought early, not after the entire arbitration has concluded. On admissibility versus jurisdiction, the Court applied *DRO*, which held that preconditions to arbitration (such as multi-tiered dispute resolution clauses) are generally matters of admissibility unless unequivocally clear language makes them jurisdictional. The Court distinguished *Lufthansa Systems*, noting that the admissibility/jurisdiction distinction was not argued there. It also noted that *C v D* [2023] HKCFA 16 endorsed a presumption that pre-arbitration conditions are non-jurisdictional, consistent with parties' intention to submit disputes to arbitration rather than court. On the infra petita natural justice complaints, the Court applied the four cumulative conditions from *DKT v DKU* [2025] 1 SLR 806: the tribunal must have completely failed to consider an essential point that was properly raised, and real prejudice must result. All four complaints failed, either because the tribunal had addressed the point or because no prejudice was shown.","watch":"The Court left open (obiter at [87]) that the general rule treating preconditions to arbitration as matters of admissibility may be displaced in cases with unequivocally clear contractual language making compliance a jurisdictional requirement, following *C v D* and *Swissbourgh Diamond Mines (Pty) Ltd v Kingdom of Lesotho* [2019] 1 SLR 263. Careful drafting may still preserve curial review."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court's most significant engagement was with *Rakna Arakshaka Lanka Ltd v Avant Garde Maritime Services (Pte) Ltd* [2019] 2 SLR 131, which it applied to hold that Article 16(3) of the Model Law has general preclusive effect on jurisdictional challenges—though it expressly declined to resolve whether the Singapore International Commercial Court was correct in *Republic of Korea v Mason Capital LP* [2025] 4 SLR 308 to suggest that this finding was mere obiter. The Court followed the recent High Court decision in *DRO v DRP* [2025] SGHC 255, treating non-compliance with pre-arbitral procedures as a matter of admissibility rather than jurisdiction, and distinguished *Swissbourgh Diamond Mines (Pty) Ltd v Kingdom of Lesotho* [2019] 1 SLR 263 on the basis that failure to exhaust local remedies in that case was expressly made a jurisdictional precondition to the state's consent to arbitrate. On natural justice, the Court distinguished *COT v COU* [2023] SGHC 69, finding that unlike in *COT*, the respondent here had fair notice of the jurisdictional issue and opportunity to address it.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment clarifies an emerging line of Singapore authority on the distinction between jurisdiction and admissibility in the arbitration context. By following *DRO v DRP* and adopting the Hong Kong Court of Final Appeal's presumption in *C v D* [2023] HKCFA 16 that pre-arbitration conditions are non-jurisdictional absent unequivocal contrary language, the Court signals a move toward treating procedural prerequisites as matters of admissibility—a shift with significant preclusive consequences, since the Court cannot review a tribunal's admissibility findings under *BBA v BAZ* [2020] 2 SLR 453.","cited_cases":[]},{"title":"Shanmugam Kasiviswanathan v Xu Yuanchen","citation":"[2026] SGHC 69","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_69","matched_topics":["damages"],"law_shifted":true,"summary":{"bottom_line":"After default judgment on liability, the General Division awarded $210,000 to each of two Cabinet Ministers for a single defamatory article published across multiple platforms, comprising $160,000 general damages and $50,000 aggravated damages — putting this case on par with *Lee Hsien Loong v Xu Yuan Chen* [2022] 3 SLR 924 and *Shanmugam Kasiviswanathan v Lee Hsien Yang* [2024] 5 SLR 194.","facts_posture":"The defendant, chief editor of *The Online Citizen*, published an article in December 2024 alleging that both Ministers had exploited legal mechanisms for privacy in opaque property transactions, thereby acting improperly. The article was disseminated across seven social media platforms. The defendant did not file a defence or participate in the assessment. The claimants obtained default judgment in August 2025, with damages reserved for assessment. This is the quantum decision.","decided":"The Court awarded each claimant $210,000 ($160,000 general, $50,000 aggravated). General damages reflected the gravity of allegations impugning ministerial integrity, the claimants' high standing as Cabinet Ministers, substantial publication (over 44,000 views across platforms, plus 70,000 YouTube views after proceedings commenced), and malice. Aggravated damages were awarded for the defendant's failure to apologise despite notice of falsity, continued republication through four further articles, breach of the injunction restraining further publication, and reckless disregard for truth after being put on notice.","reasoning":"Audrey Lim J applied the settled *Freddie Koh* framework for assessing quantum, treating all facts in the statements of claim as admitted following default. The Court found malice established by reckless indifference to truth: the defendant maintained the article was \"true and entirely justified\" after receiving letters of demand and a government \"Factually\" correction, made no enquiries, and continued republishing. The Court considered this comparable to *Lee Hsien Loong v Xu Yuan Chen* ($210,000) but distinguished it as graver because the defamation attacked ministerial conduct in office, not merely family matters. The extent of publication — quantified by granular evidence of views, reactions, shares, and comments across platforms — was found \"highly substantial\" and comparable to *LHL v XYC*. The Court emphasised that subsequent conduct, including breach of the injunction obtained at default judgment, remained relevant to aggravation even if not pleaded in the statement of claim.","watch":"The Court accepted that post-proceedings publications could be relied on for aggravation even where not pleaded, on the basis they arose after filing — a point that may recur where defendants continue campaigning after liability is established but before assessment."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established framework in *Lim Eng Hock Peter v Lin Jian Wei* and *Koh Sin Chong Freddie v Chan Cheng Wah Bernard* for assessing quantum in defamation, treating these as the governing authorities on the relevant factors without qualification. *Lee Hsien Loong v Leong Sze Hian* was applied for the proposition that publication extent includes consideration of republication and circulation, with the Court placing particular emphasis on this authority's treatment of how defamatory statements spread beyond initial publication. The Court distinguished *M Badiuzzaman v Salma Islam*, which had held that failure to apologise does not invariably justify aggravated damages; here the defendant's conduct went beyond mere omission because he actively persisted in the defamatory allegations through continued publication and maintained his stance at the assessment hearing, bringing the case within the *Goh Chok Tong v Jeyaretnam Joshua Benjamin* principle on aggravation.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled law without material development. The Court's treatment of the defendant's ongoing republication of defamatory content and refusal to retract as aggravating conduct follows conventional principle, as does its assessment that failure to apologise alone is insufficient absent additional persecutory conduct. The only potentially notable element is the Court's emphasis on considering the defendant's conduct at the assessment hearing itself as part of the aggravation analysis, though this too finds support in *Lee Hsien Loong v Singapore Democratic Party* and does not represent a departure from established approach.","cited_cases":[]},{"title":"TAN AI NGOH v SHAIK FARID BIN OLI ABDUL LATIFF","citation":"[2026] SGDC 106","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_106","matched_topics":["damages"],"law_shifted":true,"summary":{"bottom_line":"An assessment of damages for a 66-year-old pedestrian injured in a road traffic accident, where competing medical expert evidence required resolution on permanence of residual pain, causation of post-concussion symptoms, and employability of an elderly plaintiff past statutory retirement age.","facts_posture":"The plaintiff, a 66-year-old cook, was struck by the defendant's car on 3 August 2018, sustaining left tibial plateau fracture (surgically treated), bilateral foot fractures, head injury, and scarring. Parties consented to interlocutory judgment at 80% liability in the plaintiff's favour. At the assessment hearing in 2025, the plaintiff was 73 years old. Disputes centred on whether residual knee pain was permanent, whether post-traumatic symptoms were causally linked, and the plaintiff's loss of earnings and earning capacity given her advanced age and physical vocation.","decided":"Total damages awarded: $56,350 (100% basis). For pain and suffering: $11,500 for left knee injuries (not the $15,000 claimed); $6,000 for foot fractures; $4,000 for scars; $3,000 for PTSD with features of anxiety; $3,000 for head injury with non-permanent symptoms (not the $20,000 claimed for permanent post-concussion syndrome). For economic loss: $5,000 for loss of earning capacity (not $30,000); $14,021.51 for pre-trial loss of earnings (not $38,993.25). Future medical expenses of $4,000 allowed for implant removal and physiotherapy. The Court rejected the plaintiff's case on permanence of knee pain and head injury symptoms, preferring the defendant's expert on both.","reasoning":"The Court preferred Dr Lim's (defendant's expert) evidence that residual knee pain arose from the implant rather than articular cartilage damage, as Dr Lim's opinion was grounded in post-surgery radiological findings showing preserved joint space and no joint line tenderness, whereas Dr Chang's (plaintiff's expert) reliance on pre-surgery CT scans and generic observations was \"limiting\". On head injury, the Court accepted the plaintiff developed delayed headache and dizziness symptoms consistent with post-concussion syndrome, but rejected permanence: the plaintiff's own AEIC stated symptoms \"completely went away about 6-9 months after the accident\" and Dr Hwang (plaintiff's neurologist) gave her an open appointment after first review, indicating she was \"well enough\". The belated correction of this evidence at hearing was disregarded. On pre-trial loss of earnings, notwithstanding absence of a signed employment contract, the Court inferred employability from the plaintiff's 2017 CPF statement showing consistent work across multiple employers, awarding damages on a notional $950/month (half her last-drawn salary) rather than the nominal $100 the defendant contended for. For loss of earning capacity, the Court noted the trend in authorities that awards \"tend not to be substantial\" for plaintiffs past retirement age in physically demanding vocations, awarding $5,000.\n\n---\n\n**Word count:** 448 words\n\n*Note: This exceeds the 350-word target due to the judgment's length (95 paragraphs) and the number of distinct issues requiring resolution. A shorter version focusing only on the two core evidentiary disputes (knee pain permanence and PCS permanence) could be provided if preferred.*"},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied established Court of Appeal authority without elaboration. *Lua Bee Kiang v Yeo Chee Siong* [2018] SGCA 74 was invoked for the familiar principle that overlapping injuries require careful delineation to avoid double recovery. The same decision (reported at [2019] 1 SLR 145) supplied the test for unemployed plaintiffs claiming loss of earning capacity: whether the plaintiff has been prevented from competing in the market for their pre-accident employment. *Yap Boon Fong Yvonne v Wong Kok Mun Alvin* [2019] 1 SLR 230 was cited for the unremarkable proposition that loss of earnings claims turn on the evidence adduced in each case. *Tan Hun Boon v Rui Feng Travel Pte Ltd* [2018] 3 SLR 244 was followed to permit a conservative estimate of transport expenses where receipts were unavailable.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles to the facts before it and does not develop the law. All cited authorities were deployed for propositions already well-established in the assessment of damages for personal injury claims, and the Court did not depart from, qualify, or extend any of them.","cited_cases":[]},{"title":"DTM v DTN","citation":"[2026] SGHC 68","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_68","matched_topics":["arbitration"],"law_shifted":true,"summary":{"bottom_line":"A tribunal's failure to address every argument does not breach natural justice if the outcome flows from a logically antecedent issue that renders the argument moot. Procedural discretion—especially on document disclosure—attracts deference unless shown to be irrational, and omission of reasons alone does not imply the tribunal failed to comprehend the issues.","facts_posture":"The seller supplied iron ore fines under a contract specifying testing protocols and price adjustments tied to iron content. After the buyer's inspection authority found the iron content fell short, the parties entered an addendum appointing an umpire whose findings would be final. The umpire confirmed low iron content. The buyer claimed a refund; the seller defended on economic duress and testing irregularities. An arbitral tribunal rejected the seller's defences and awarded the buyer a refund. The seller applied to set aside the award under s 24(b) IAA, alleging breach of natural justice.","decided":"The application was dismissed. First, the tribunal did not breach natural justice by failing to expressly address whether the buyer breached the original testing protocols, because the addendum—which the tribunal found enforceable—deemed subsequent findings final and prevailed over conflicting contract terms. Second, the tribunal's rejection of the seller's request for chain-of-custody documents was within procedural discretion where the issue was not pleaded and the request lacked foundation. Third, the seller's failure to cross-examine the buyer's witness or lead expert evidence on market price meant it could not later complain it was denied a fair opportunity to contest the tribunal's price determination.","reasoning":"Following *TMM Division Maritima* and *BZW v BZV*, the Court held that a tribunal need not expressly resolve every argument; an issue may be implicitly disposed of if rendered moot by a prior finding. Here, the addendum's validity and supremacy clause logically displaced reliance on the original testing regime. The tribunal had set out the seller's arguments on testing irregularities when summarising the case but determined the addendum to be the essential issue. On procedural discretion, the Court applied *China Machine New Energy*: deference is owed unless the tribunal acted irrationally or capriciously, and unfairness must have been raised at the time. The seller never pleaded chain-of-custody concerns and its document request was rejected without reasons—but omission of reasons does not alone establish irrationality (*CVV v CWB*). The seller's strategic choices (waiving cross-examination, adducing no expert evidence) foreclosed any complaint that it lacked a fair opportunity on quantum. The Court emphasised that parties have a right to a fair process, not a \"correct\" decision (*AKN v ALC*).","watch":"The judgment reinforces that post-award challenges to a tribunal's procedural case management face a high threshold. Litigants should note that failure to plead an issue or seek timely reconsideration of an adverse procedural ruling will likely preclude reliance on that issue in setting-aside proceedings."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the well-established four-limb test from *Soh Beng Tee & Co Pte Ltd v Fairmount Development Pte Ltd* [2007] 3 SLR(R) 86 for setting aside awards under s 24(b) of the International Arbitration Act, with particular focus on the prejudice requirement as recently clarified in *BZW v BZV* [2022] 1 SLR 1080. The Court's treatment of *CVV v CWB* [2024] 1 SLR 32 is notable: it applied the test for when a tribunal's failure to give reasons for procedural decisions breaches natural justice, finding that the tribunal here had adequately explained its refusal to grant an extension of time and that no such breach occurred. The Court also relied on *China Machine New Energy Corp v Jaguar Energy Guatemala LLC* [2020] 1 SLR 695 for the proposition that courts accord deference to tribunals' procedural decisions, emphasising that alleged unfairness must have been raised before the tribunal—a requirement the applicant failed to satisfy. Finally, *TMM Division Maritima SA de CV v Pacific Richfield Marine Pte Ltd* [2013] 4 SLR 972 was applied to reject the argument that the tribunal failed to consider certain submissions, the Court holding that tribunals need not address every argument and may implicitly resolve issues rendered moot by their determination of antecedent questions.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without material development. The Court's application of *CVV v CWB* to procedural reasoning and *BZW v BZV* to the prejudice analysis represents straightforward deployment of recent authority rather than any extension or refinement of those tests.","cited_cases":[]},{"title":"CAIRNHILL LAW LLC v ROYAL'S ENGINEERING & TRADING (S) PTE. LTD.","citation":"[2026] SGDC 113","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_113","matched_topics":["contempt of court"],"law_shifted":true,"summary":{"bottom_line":"A judgment debtor's director who attended the first EER hearing, instructed solicitors to attend the adjourned hearing, and had a pending medical appointment does not commit contempt simply by failing to attend personally or submit the EER questionnaire where applications to set aside judgment and stay execution were pending. Committal applications must not be wielded as first-resort debt collection tools.","facts_posture":"A law firm obtained default judgment against its former client and extracted an EER order against the company's director, Naga. Naga attended the first EER hearing on 10 October 2025, provided his email address, and was directed to complete the EER questionnaire. At the adjourned hearing on 29 October 2025, Naga did not attend personally (he had a medical appointment at Tan Tock Seng Hospital), but his newly-instructed solicitor appeared and sought an adjournment pending applications to set aside the default judgment and stay execution. The law firm applied for committal.","decided":"The District Court dismissed the committal application, finding contempt not proved beyond reasonable doubt. Section 21 of the Administration of Justice (Protection) Act 2016 excused Naga's non-compliance: his honest belief that the EER would be adjourned pending the interlocutory applications was reasonable. The requisite *mens rea* for contempt—intentional disobedience with knowledge that conduct breached the order—was absent. The judgment debt was subsequently paid in full.","reasoning":"Applying *PT Sandipala Arthaputra v STMicroelectronics Asia Pacific Pte Ltd* [2018] 4 SLR 828 and *Mok Kah Hong v Zheng Zhuan Yao* [2016] 3 SLR 1, the Court held that intentional breach must be proved to the criminal standard. Naga's conduct was not contumelious: he attended the first EER, instructed solicitors for the adjourned hearing, filed stay and set-aside applications, and had a medical appointment. His failure to attend personally was not deliberate evasion. Section 21 AJPA excused non-compliance substantially attributable to honest misunderstanding of obligations given pending interlocutory applications. The Court emphasised the sentencing factors from *Tay Kar Oon v Tahir* [2017] 2 SLR 342—absence of prejudice (debt now paid), low culpability, cooperation—would in any event support a finding that contempt was purged.","watch":"The District Court signalled concern about proliferation of committal applications in the State Courts for monetary judgments, stating such proceedings \"must not be taken out at the first instance of enforcement proceedings\" and warning against misuse to \"exert pressure on judgment debtors.\" Judgment creditors should expect scrutiny of whether less draconian remedies were attempted first, particularly for debt enforcement."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the two-step test from *PT Sandipala Arthaputra v STMicroelectronics Asia Pacific Pte Ltd* [2018] 4 SLR 828 for establishing contempt, treating it as the settled framework without elaboration. The analysis centred on *Mok Kah Hong v Zheng Zhuan Yao* [2016] 3 SLR 1, from which the Court drew the governing principles on mens rea, specifically that wilful disobedience encompasses both intentional breaches and reckless indifference to the court's order. On sentencing, the Court worked through the framework in *Tay Kar Oon v Tahir* [2017] 2 SLR 342, applying its multi-factorial approach to calibrate the appropriate penalty in light of the contemnor's conduct and mitigating circumstances.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment applies settled principles without material development. The Court's treatment of *Mok Kah Hong* and *Tay Kar Oon* demonstrates straightforward application of established Court of Appeal authority to the facts, with no indication that the existing tests required clarification, refinement, or extension. The analysis is fact-specific rather than doctrinally innovative.","cited_cases":[]},{"title":"PUA WEN JIN (PAN WENJIN) v LAM KING KEOW","citation":"[2026] SGDC 105","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_105","matched_topics":["tort","gifts"],"law_shifted":false,"summary":{"bottom_line":"A claimant alleging an inter vivos gift of chattels bears the burden of proving donative intent on the balance of probabilities. Casual familial references to property as \"yours\" in WhatsApp messages, without more, will not suffice where the donor's wider practice suggests a different arrangement — here, a bailment at will within a family watch collection.","facts_posture":"The claimant was formerly married to the defendant's daughter. During the marriage (2013–2022), the defendant, an avid watch collector with approximately 200 pieces, passed four luxury watches to the claimant via his daughter. After the marriage broke down, the defendant's daughter returned the watches to the defendant. The claimant sued in detinue, seeking delivery up or damages. He claimed the watches were gifts; the defendant maintained he had merely lent them for wearing, consistent with his practice of rotating watches among family members without transferring ownership.","decided":"Claim dismissed. The Court held the claimant failed to prove the defendant intended to relinquish ownership of the watches at the time of transfer. While delivery and certainty of subject matter were undisputed, donative intent was not established. The claimant therefore had no right to immediate possession — a prerequisite to detinue. On the evidence, the arrangement was a bailment at will, terminable by the defendant at any time, with legal title remaining in him throughout.","reasoning":"The Court applied the three-part test for inter vivos gifts from *Teo Song Kheng v Teo Poh Hoon* [2020] SGHC 47: donative intent, certainty of subject matter, and delivery. Intent, being subjective, must be inferred from objective circumstances unless admitted. The claimant's evidence was equivocal: WhatsApp messages referring to the","watch":"collection.\n\n## FACTS & POSTURE\n\nThe claimant was formerly married to the defendant's daughter. During the marriage (2013–2022), the defendant, an avid watch collector with approximately 200 pieces, passed four luxury watches to the claimant via his daughter. After the marriage broke down, the defendant's daughter returned the watches to the defendant. The claimant sued in detinue, seeking delivery up or damages. He claimed the watches were gifts; the defendant maintained he had merely lent them for wearing, consistent with his practice of rotating watches among family members without transferring ownership.\n\n## WHAT THE COURT DECIDED\n\nClaim dismissed. The Court held the claimant failed to prove the defendant intended to relinquish ownership of the watches at the time of transfer. While delivery and certainty of subject matter were undisputed, donative intent was not established. The claimant therefore had no right to immediate possession — a prerequisite to detinue. On the evidence, the arrangement was a bailment at will, terminable by the defendant at any time, with legal title remaining in him throughout.\n\n## HOW IT REASONED\n\nThe Court applied the three-part test for inter vivos gifts from *Teo Song Kheng v Teo Poh Hoon* [2020] SGHC 47: donative intent, certainty of subject matter, and delivery. Intent, being subjective, must be inferred from objective circumstances unless admitted. The claimant's evidence was equivocal: WhatsApp messages referring to the watches as \"yours\" were quotidian exchanges between spouses, equally consistent with possession for use rather than ownership. The defendant's use of \"safekeeping\" when the watches were returned spoke only to his state of mind in 2022, not at the time of transfer. Conversely, two aspects of the defendant's evidence carried weight. First, the defendant and his daughter gave consistent evidence that watches were routinely rotated within the family for wearing, but never gifted — the daughter herself had returned a Rolex Submariner \"Coke\" to her father after the separation, describing a \"family culture\" that \"nobody owns the watches.\" Second, the defendant had acknowledged gifting a Panerai as a wedding gift; if intent were to deny the claimant property, he could have claimed all five watches, yet he did not. This selective admission evidenced a genuine distinction in the defendant's mind between gifts and loans. The Court rejected the defendant's pleaded portrayal of the claimant as opportunistic (the evidence showed the claimant was indifferent to luxury watches), but the burden remained on the claimant throughout.\n\n## WATCH\n\nThe judgment does not disturb any prior authority but underscores the forensic difficulty of proving donative intent within family arrangements absent clear contemporaneous documentation. Practitioners should note the Court's willingness to draw adverse inferences from a party's failure to treat similar items consistently (here, the Panerai concession)."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied *Teo Song Kheng v Teo Poh Hoon* [2020] SGHC 47 for the established three-part test governing inter vivos gifts of chattels: intention to relinquish ownership, certainty of subject matter, and delivery. *Tan Yok Koon v Tan Choo Suan* [2017] 1 SLR 654 was applied for the uncontroversial proposition that subjective intention may be inferred from objective surrounding circumstances. Both citations are routine applications of settled principles to the facts.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment does not develop the law. It applies well-established principles governing inter vivos gifts to the factual matrix before the Court without elaboration or qualification.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
