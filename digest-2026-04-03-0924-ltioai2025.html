@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 3 April 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 2","digest_date":"3 April 2026","cases":[{"title":"STEVEN KURNIAWAN PRAYITNO v OH CHIN ANN & 2 Ors","citation":"[2026] SGHC 70","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_70","matched_topics":["contract","bailment"],"law_shifted":false,"summary":{"bottom_line":"A bailee who sells the bailor's goods to recover unpaid storage fees commits both a breach of bailment and conversion unless the parties' agreement, unequivocally evidenced, conferred such a right. Silence or acquiescence in the face of threats to sell does not constitute contractual variation; commercial parties cannot retrospectively claim authority to dispose of bailed goods based on the bailor's failure to object during ongoing dealings.","facts_posture":"The plaintiff, an Indonesian businessman, engaged the first and second defendants (director and company respectively) to import 14 antique cars from the UK via Singapore for onward export to Indonesia. Under an oral agreement formed in 2016, the defendants arranged shipping, storage and export documentation. When Indonesian import permits were delayed, storage fees accumulated. The defendants paid these fees initially but later sold all 14 cars without the plaintiff's consent to recoup outstanding charges. The plaintiff sued all three defendants (the third having been mistakenly named as consignee for two cars) for breach of bailment duties and contract. The trial was bifurcated; this judgment concerns liability only.","decided":"The Court held the first and second defendants jointly and severally liable in bailment and the second defendant liable in contract for 13 of the 14 cars. The parties' 2016 oral agreement required the plaintiff to reimburse storage fees only after the cars reached Indonesia, not during the storage period in Singapore. Even if regular reimbursement had been required, no contractual variation arose permitting sale of the cars; the plaintiff's silence when threatened with sale did not satisfy the legal requirements for variation. The parties later concluded a July 2019 agreement for the defendants to transfer the remaining cars to the plaintiff's company in exchange for S$125,805.96, with concurrent obligations. The defendants repudiated this agreement by selling the cars instead. The third defendant was not liable, having never voluntarily assumed possession of the two cars for which he was mistakenly named consignee.","reasoning":"The Court applied settled principles that a bailee's common law duties to take care of goods and not convert them can only be excluded by express stipulation clearly accepted by the bailor (*Harling v Eddy* (1951), adopted in *Alan Chua* (1993)). The first defendant's subjective belief he could sell the cars, absent the plaintiff's agreement, fell far short of this standard. The Court scrutinised the parties' WhatsApp and email exchanges closely, finding them more consistent with ad hoc goodwill prepayments than a binding obligation to reimburse fees during storage. The first defendant's pattern of chasing payment only when himself pressed by storage companies, coupled with vague references to \"regular and timely\" reimbursement without specified deadlines, negated any implied term permitting sale.\n\nOn contractual variation, the Court emphasised that unilateral variation is impermissible and mere acquiescence insufficient (*Fairview Developments* (2014), citing Wilken & Ghaly). Fresh consideration is required unless dispensed with at contract formation. The plaintiff's non-objection to threats of auction, read in context, showed concern about delay rather than acceptance of the defendants' asserted right. The Court found the first defendant evasive and dishonest, particularly his denial at trial of a 17 July 2019 meeting he himself had pleaded and deposed to. Contemporaneous WhatsApp messages and a statement of account signed the next day conclusively proved the meeting occurred, fatally undermining his credibility.\n\nThe July 2019 agreement was reconstructed from the statement of account and subsequent conduct. The plaintiff's shocked reaction on 18 July 2019 upon learning (incorrectly) that three Porsche cars had been sold corroborated his evidence that he believed all cars would be returned. The Court held the settlement sum of S$125,805.96 made sense only if the defendants were to return those cars; otherwise the supposed sale proceeds of S$200,000 would have extinguished the debt. The obligations were concurrent, not sequential, meaning neither party could complain of non-performance while failing to tender their own. The defendants' refusal to engage and subsequent sale of all remaining cars constituted repudiatory breach.\n\nThe Court distinguished the third defendant's position entirely. Being named as consignee on a sea waybill does not automatically create bailment absent voluntary assumption of possession. The first defendant fabricated authorisation documents using the third defendant's business stamp without permission to collect the two Porsche cars, a finding the first defendant ultimately admitted. The touchstone of bailment is knowing and willing possession (*Alwie Handoyo* (2013)); the third defendant had none.","watch":"The Court's strong obiter remarks that the first defendant likely treated the second defendant as his \"personal piggy bank\" and siphoned sale proceeds (routing S$208,000 to a third party on purported loans never repaid) suggest the corporate veil might also have been pierced had it been necessary to the result. Practitioners should note the Court's willingness to account for sale proceeds as an alternative to damages in bailment, with election required before inquiry."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied established authority without controversy. *Felthouse v Bindley* (1862) 11 CB (NS) 869 and *Ma Hongjin v SCP Holdings Pte Ltd* [2021] 1 SLR 304 were invoked for the uncontroversial propositions that contractual variations require acceptance (not mere acquiescence) and fresh consideration. *RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd* [2007] 4 SLR(R) 413 provided the standard test for repudiatory breach. On bailment, the Court applied *Alwie Handoyo v Tjong Very Sumito* [2013] 4 SLR 308 and the recent *Jeil Crystal* [2024] 4 SLR 1691 for the proposition that bailment requires voluntary assumption of possession of another's goods—both cases cited for their articulation of the same settled principle.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies existing doctrine to its facts without developing the law. The principles governing contractual variation, repudiatory breach, and bailment are well-settled, and the Court's deployment of them was orthodox. The citation of *Jeil Crystal*, a 2024 Court of Appeal decision, confirms continuity in the bailment test rather than any evolution.","cited_cases":[]},{"title":"DSQ v DSR","citation":"[2026] SGHC 67","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_67","matched_topics":["arbitration"],"law_shifted":true,"summary":{"bottom_line":"A party who receives a preliminary ruling on jurisdiction under Art 16(3) of the Model Law or s 10(3) IAA and does not challenge it in court within 30 days is precluded from raising the same jurisdictional objection in setting-aside proceedings, unless it is a non-participating respondent. The Court also confirms that compliance with pre-arbitration dispute resolution procedures in construction contracts is ordinarily a matter of admissibility, not jurisdiction, and so not reviewable by the court.","facts_posture":"The employer and contractor disputed whether pre-arbitral steps under a FIDIC-based contract (referral to a Dispute Adjudication Board) had been complied with. The tribunal ruled in Procedural Order No 5 that it had jurisdiction. The employer did not apply to court within 30 days but continued to participate in the arbitration. After the final award issued against it, the employer applied to set aside the award for lack of jurisdiction and breach of natural justice.","decided":"The setting-aside application failed on all grounds. First, Art 16(3) of the Model Law and s 10(3) IAA have general preclusive effect: a party who fails to challenge a preliminary ruling on jurisdiction within 30 days cannot later rely on the same ground to set aside an award, save for non-participating respondents (*Rakna Arakshaka Lanka Ltd v Avant Garde Maritime Services (Pte) Ltd* applied). Second, non-compliance with pre-arbitration procedure goes to admissibility, not jurisdiction (*DRO v DRP* followed; *International Research Corp PLC v Lufthansa Systems Asia Pacific Pte Ltd* distinguished). Third, all four natural justice complaints failed, including an *infra petita* challenge, because the tribunal had either addressed the points or any failure caused no prejudice.","reasoning":"The Court held itself bound by the Court of Appeal's reasoning in *Rakna* that Art 16(3) has general preclusive effect, rejecting the employer's contention that this was obiter. *Rakna* had decided (i) that Art 16(3) applies to preliminary rulings on jurisdiction; (ii) that it has general preclusive effect; and (iii) that an exception applies to non-participating respondents. The Court applied the *Cross & Harris* test for ratio decidendi and found the preclusion principle was a necessary step in *Rakna*'s reasoning. Even if not bound, the Court would have followed *Rakna* given the policy rationale — avoiding wasted costs by precipitating early determination of jurisdiction — and the international consensus. On admissibility, the Court preferred *DRO v DRP* (which held that preconditions to arbitration are presumptively matters of admissibility, following *BTN v BTP*) over *Lufthansa*, noting that *Lufthansa* did not engage with the admissibility/jurisdiction distinction, which was not argued there. The Court declined to treat the FIDIC DAB procedure differently merely because it involved adjudication rather than negotiation: the contract still provided for arbitration as the final dispute resolution mechanism. On natural justice, the Court found no breach: the employer had had opportunities to respond to the contractor's closing submissions on the applicable cap, and the tribunal had addressed (and rejected) the employer's repudiatory breach argument and its other evidential points.","watch":"The Court followed *DRO v DRP* in treating pre-arbitration conditions as presumptively matters of admissibility \"save that... there may be cases where the general rule is displaced\" (at [87]). The circumstances in which a precondition becomes jurisdictional rather than admissible remain to be clarified, though the Court endorsed the *C v D* (Hong Kong CFA) requirement for \"unequivocally clear language\" displacing the presumption."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court meaningfully engaged with four recent decisions on the jurisdiction–admissibility distinction. It applied *DRO v DRP* [2025] SGHC 255 to hold that preconditions to arbitration (including failure to exhaust local remedies) are presumptively matters of admissibility, not jurisdiction, thereby **narrowing** the Court of Appeal's earlier holding in *International Research Corp PLC v Lufthansa Systems Asia Pacific Pte Ltd* [2014] 1 SLR 130 that non-compliance with pre-arbitral procedures goes to jurisdiction. The Court distinguished *Swissbourgh Diamond Mines (Pty) Ltd v Kingdom of Lesotho* [2019] 1 SLR 263, confining its treatment of exhaustion of local remedies as jurisdictional to the specific investor-state arbitration context. Applying *BTN v BTP* [2021] 1 SLR 276, the Court held that a tribunal's decision on res judicata effect is one of admissibility and therefore not reviewable. The Court also distinguished *COT v COU* [2023] SGHC 69 on natural justice grounds, holding that merely adding an issue to a list of issues after the evidential phase—without prior notice in pleadings—did not afford a fair opportunity to address it.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment clarifies and arguably reshapes Singapore's approach to procedural preconditions in arbitration. By applying the more recent *DRO v DRP* and preferring the Hong Kong Court of Final Appeal's presumptive treatment of preconditions as matters of admissibility (from *C v D* [2023] HKCFA 16), the Court has effectively qualified *International Research Corp*, which had held such non-compliance jurisdictional. The practical consequence is significant: courts will now rarely intervene on jurisdictional grounds where a tribunal has ruled on whether procedural preconditions were satisfied.\n\n## OPEN QUESTIONS\n\nThe Court did not definitively resolve whether its narrowing of *International Research Corp* amounts to overruling or merely distinguishing it; the relationship between that authority and the newer presumptive approach may require clarification in future cases.","cited_cases":[]},{"title":"DTM v DTN","citation":"[2026] SGHC 68","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_68","matched_topics":["arbitration"],"law_shifted":true,"summary":{"bottom_line":"An arbitral tribunal's failure to expressly address an argument in its award does not breach natural justice if the issue has been implicitly resolved by a logically antecedent finding. Rejection of a document disclosure request does not violate the fair hearing rule where the requesting party has not pleaded the issue for which the documents are sought and fails to explain why the tribunal's exercise of procedural discretion was irrational.","facts_posture":"The applicant supplied iron ore fines to the respondent. After the Inspection Authority's certificate showed iron content below contractual specifications, the parties entered into Addendum No 2 appointing an umpire whose findings would be final. The umpire found 52.60% iron content. The respondent claimed a refund; the applicant counterclaimed for unpaid sums. A Singapore-seated SIAC arbitration resulted in an award for the respondent of over US$2 million. The applicant applied to set aside the award under s 24(b) IAA alleging breach of natural justice, or alternatively for remission under Art 34(4) Model Law.","decided":"The application to set aside was dismissed. The arbitral tribunal did not breach natural justice by failing to expressly determine whether the respondent breached the original inspection clause (Clause 9), as this issue was implicitly resolved by the tribunal's finding that Addendum No 2 was enforceable and prevailed over conflicting contract terms. The tribunal's rejection of the applicant's requests for documents relating to chain of custody and comparable transactions did not deny a fair hearing where the applicant had not pleaded chain of custody issues and elected not to cross-examine the respondent's witness or call expert evidence on market price.","reasoning":"The Court applied *TMM Division Maritima SA de CV v Pacific Richfield Marine Pte Ltd* [2013] 4 SLR 972: an arbitral tribunal need not expressly address every argument if the outcome flows from a logically prior finding. Here, once Addendum No 2 was found enforceable, Clause 9 became moot because Addendum No 2 expressly prevailed over conflicting contract terms and deemed the umpire's certificate final. The tribunal plainly had the issue in mind—it recounted the applicant's procedural complaints and noted the respondent's submission that Addendum No 2 rendered Clause 9 irrelevant—but determined the antecedent question dispositive. \n\nOn procedural disclosure, the Court applied *China Machine New Energy Corp v Jaguar Energy Guatemala LLC* [2020] 1 SLR 695: tribunals have wide discretion on procedure; a party alleging breach must show the tribunal acted irrationally or capriciously. The applicant never pleaded chain of custody in its defence and offered only bare speculation in witness statements. The tribunal's rejection of disclosure was not shown to be irrational. Similarly, the applicant's failure to cross-examine or call expert evidence on market price—despite the tribunal expressly stating it would have preferred expert assistance—meant the respondent's evidence went unchallenged. Strategic choices have consequences; the tribunal's acceptance of unchallenged evidence did not breach natural justice. \n\nRemission under Art 34(4) Model Law presupposes a finding that grounds for setting aside exist. As no breach was established, remission did not arise.","watch":"The Court cited *CVV v CWB* [2024] 1 SLR 32 for the proposition that an arbitral tribunal's failure to give reasons for a procedural order breaches natural justice only if \"logically so grave or glaring\" as to show the tribunal did not comprehend the essential issues—a high threshold that will rarely be crossed absent egregious circumstances."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established four-stage framework from *Soh Beng Tee & Co Pte Ltd v Fairmount Development Pte Ltd* [2007] 3 SLR(R) 86 for setting aside arbitral awards under s 24(b) of the IAA for breach of natural justice, with no modification to the test itself. The critical authority was *BZW v BZV* [2022] 1 SLR 1080, which the Court applied to determine the threshold for \"actual or real prejudice\" — the analysis turned on whether the applicant could demonstrate that a different procedural course might realistically have altered the outcome. *China Machine New Energy Corp v Jaguar Energy Guatemala LLC* [2020] 1 SLR 695 was applied for the proposition that courts afford tribunals a margin of deference in procedural case management decisions, reinforcing judicial restraint in second-guessing arbitral procedure. The Court also relied on *CVV v CWB* [2024] 1 SLR 32 to assess whether the tribunal's procedural decisions indicated a failure to comprehend essential issues, treating this as a narrow exception requiring clear evidence that the tribunal fundamentally misapprehended what was before it.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without innovation. The Court reaffirmed the high threshold for setting aside awards on natural justice grounds and the limited scope of curial intervention in arbitral procedure, following orthodox Court of Appeal authority without qualification or extension. No new tests were articulated and no earlier propositions were narrowed or expanded.","cited_cases":[]},{"title":"CAIRNHILL LAW LLC v ROYAL'S ENGINEERING & TRADING (S) PTE. LTD.","citation":"[2026] SGDC 113","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGDC_113","matched_topics":["contempt of court"],"law_shifted":true,"summary":{"bottom_line":"Committal for non-attendance at an examination of enforcement respondent (EER) hearing will not succeed where the respondent attended the first hearing, instructed solicitors to attend the adjourned hearing, had a medical appointment coinciding with that hearing, and filed applications to stay and set aside the underlying judgment. The mens rea for contempt under s 4(1) of the Administration of Justice (Protection) Act 2016 was not made out on these","facts_posture":"The claimant law firm obtained default judgment against the defendant company for unpaid fees and extracted an EER order against the company's director, Naga. Naga attended the first EER hearing on 10 October 2025 but did not attend the adjourned hearing on 29 October 2025, nor did he furnish the completed EER questionnaire. The claimant applied for committal on the basis of this non-attendance.\n\n---","decided":"The Court dismissed the committal application. It held that contempt under s 4(1) AJPA requires proof beyond reasonable doubt that the breach was intentional — the requisite mens rea was not established. The director's conduct did not meet the threshold: he had attended the first EER, instructed solicitors to attend the adjourned hearing, had a medical appointment at the material time, and had filed applications to stay execution and set aside the default judgment. His belief that the EER would be adjourned pending those applications was honest and reasonable under s 21 AJPA.\n\n---","reasoning":"The Court applied *Mok Kah Hong v Zheng Zhuan Yao* [2016] 3 SLR 1 and *PT Sandipala Arthaputra v STMicroelectronics Asia Pacific Pte Ltd* [2018] 4 SLR 828, emphasising that contempt requires intentional disobedience — the contemnor must know the facts making his conduct a breach, even if he need not appreciate it constitutes contempt. The Court found Naga had taken reasonable steps: attending the first hearing, engaging solicitors, filing interlocutory applications. His absence was not deliberate non-compliance but arose from a medical appointment and a reasonable belief the hearing would be adjourned. Section 21 AJPA excused his failure because it was substantially attributable to an honest misunderstanding of his obligations. The Court noted the claimant could have sought a short adjournment for the questionnaire but instead suspended the EER to pursue committal — a move inconsistent with the remedial purpose of EER, which is to ascertain assets, not coerce payment. Relying on *Tay Kar Oon v Tahir* [2017] 2 SLR 342, the Court observed that even if contempt were made out, Naga had substantially purged it by the defendant's subsequent full payment of the judgment.\n\n---","watch":"The Court's strong obiter remarks about committal as a \"last resort\" signal growing judicial concern over the proliferation of committal applications in the State Courts. It stated explicitly that committal should not be pursued at the first instance of enforcement and warned against using contempt proceedings to exert pressure on judgment debtors where procedural remedies (particularly in money judgments) remain available. Expect closer scrutiny of whether applicants have genuinely exhausted less draconian enforcement mechanisms before resorting to committal."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the two-step approach from *PT Sandipala Arthaputra v STMicroelectronics Asia Pacific Pte Ltd* [2018] 4 SLR 828 for determining whether contempt has been committed, treating it as the governing analytical framework. The Court of Appeal's decision in *Mok Kah Hong v Zheng Zhuan Yao* [2016] 3 SLR 1 was applied for the requisite mens rea, confirming that intentional breach suffices even absent specific intent to disobey the court. On sentencing, *Tay Kar Oon v Tahir* [2017] 2 SLR 342 provided the relevant factors, though the judgment does not appear to have engaged with those factors in any novel way.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment applies settled principles without material development. The analytical framework for contempt proceedings and the mens rea requirement are well-established, and the Court's application follows orthodox lines from binding Court of Appeal authority in *Mok Kah Hong*. The treatment of sentencing factors from *Tay Kar Oon* is similarly straightforward, involving no apparent clarification or extension of the existing approach.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
