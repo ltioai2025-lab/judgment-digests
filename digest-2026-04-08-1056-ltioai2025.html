@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 8 April 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Tester 2","digest_date":"8 April 2026","cases":[{"title":"Re: DA SHUN SHIPPING (PTE.) LTD.","citation":"[2026] SGHC 75","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_75","matched_topics":["admiralty and shipping"],"law_shifted":false,"summary":{"bottom_line":"A co-debtor who pays more than its rateable share of a joint debt cannot obtain priority over unsecured creditors by claiming subrogation to the mortgagee's discharged security unless it establishes a recognised unjust factor—mere disproportion in contributions is insufficient. Additionally, admiralty claimants who forbear from arresting a vessel pursuant to a court-sanctioned consent order may obtain security over sale proceeds by agreement, even without perfecting security by arrest.","facts_posture":"Da Shun and An Wei were joint and several borrowers under a cross-collateralised loan secured by mortgages over their respective vessels. Sale proceeds from An Wei's vessel partially discharged Da Shun's share of the debt. HSBC and SG held admiralty in rem writs for misdelivery claims against Da Shun's vessel, the \"Sea Latitude\". Pursuant to a consent order under s 100(2) IRDA, the vessel was sold free of encumbrances, with balance proceeds paid into court as security for the Writ Claimants' claims pending adjudication. An Wei sought subrogation to the discharged mortgage, claiming priority over HSBC and SG. Mr Yit, as liquidator, sought directions on distribution.","decided":"An Wei's claim for subrogation failed. No recognised unjust factor existed to ground equitable relief—An Wei voluntarily assumed joint and several liability and its payment to discharge part of Da Shun's debt was consistent with the commercial risk it accepted. Contribution as an unsecured creditor was available but did not entitle An Wei to step into the mortgagee's shoes. The Writ Claimants obtained security over the balance proceeds by virtue of the s 100 Order, which constituted an enforceable agreement between Da Shun and the banks to provide security in lieu of arrest. The validity of HSBC and SG's underlying claims required trial, not summary determination on affidavits.","reasoning":"Subrogation is a remedy to reverse unjust enrichment, not to relieve hard bargains. The Court emphasised that unjust enrichment requires proof of a specific unjust factor recognised by law—failure of basis, mistake, compulsion, or similar vitiation—not abstract unfairness. An Wei paid pursuant to a pre-existing contractual obligation and received the benefit it bargained for. No expectation failed, nor was the transaction normatively defective. The decision followed *Anna Wee* and *Lowick Rose*: a claimant must point to an established ground for restitution, not invite discretionary intervention. Section 2 of the Mercantile Law Amendment Act codifies common law subrogation but does not enlarge it or dispense with the need for an unjust factor. On priority, the Court distinguished *Natixis (CA)*. While a writ in rem alone confers no security, the s 100 Order represented a consensual arrangement whereby Da Shun agreed to provide security to HSBC and SG by paying balance proceeds into court in return for their forbearance from arrest. Interpreting the order as a contract, the Court gave effect to the parties' objectively ascertained intention to replicate, as far as possible, the outcome of an admiralty arrest and judicial sale. The Court also refused subrogation on public policy grounds: granting An Wei priority two years after the sale would disrupt equitable distribution in insolvency and prejudice creditors who relied on the s 100 Order's framework. *Da Hui (HC)* was applied—no subrogation is available where the security has been spent, whether by judicial sale or court-sanctioned disposal.","watch":"The judgment expressly orders a trial of HSBC and SG's claims, which involve serious allegations that their bills of lading were fabricated. Parallel allegations are being tried in related interpleader proceedings involving other bills issued in similar circumstances. The Court invoked ss 6 and 10 IRDA to direct a trial where proof of debt disputes involve allegations of fraud or forgery requiring cross-examination. Lower courts may follow this approach in deciding when summary adjudication of proofs of debt is inappropriate."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the recent High Court decision in *Da Hui Shipping (Pte) Ltd v An Rong Shipping Pte Ltd* [2025] 4 SLR 816 to reject the claim for subrogation, holding that a mortgagee's security interest is spent when the security itself is realised to discharge the primary debt—a principle the Court now treats as settled law. The Court distinguished the foundational UK authorities on subrogation (*Banque Financière de la Cité v Parc (Battersea) Ltd* and *Menelaou v Bank of Cyprus UK Ltd*) on the basis that they concerned situations where third-party payments discharged debts, whereas here the plaintiff's own security was realised to extinguish the liability. Most significantly, the Court applied *Natixis, Singapore Branch v Seshadri Rajagopalan* [2025] 1 SLR 1020 to hold that admiralty claimants only become holders of security upon actual arrest of a vessel, not upon mere issuance of an in rem writ—a distinction that proved fatal to the plaintiff's alternative argument that it held continuing security capable of supporting a subrogation claim.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment consolidates rather than develops the law. It confirms that *Da Hui Shipping* represents the operative principle for determining when a mortgagee's security is spent, and integrates the holding in *Natixis* regarding when admiralty security crystallises into this framework. The Court reinforced that unjust enrichment claims require proof of a recognised unjust factor and cannot operate as a broad equitable discretion, reiterating guidance from *Lowick Rose* and *HMRC v The Investment Trust Companies* that had already been endorsed in local jurisprudence.","cited_cases":[{"case_name":"Liu Huaixi v Haniffa Pte Ltd","citation":"[2017] SGHC 270","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"The In-Principle Approval Letter serves to inform foreign workers of their salary in clear terms"},{"case_name":"SATS Construction Pte Ltd v Islam Md Ohidul","citation":"[2016] 3 SLR 1164","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A successful party is entitled to costs even where counsel act pro bono"},{"case_name":"Law Society of Singapore v Kurubalan s/o Manickam Rengaraju","citation":"[2013] 4 SLR 91","court":"Court of Three Judges","jurisdiction":"Singapore","treatment":"cited","proposition":"It is permissible and honourable for counsel to act for impecunious clients where their only real hope of being paid would be through an award of costs following success in the claim"}]},{"title":"BABBOBOX PTE. LTD. v EPIQ SINGAPORE PTE. LTD.","citation":"[2026] SGHC 66","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_66","matched_topics":["civil procedure"],"law_shifted":false,"summary":{"bottom_line":"A pre-trial application to determine ownership of source code under a software development agreement will be refused where the court would need to resolve disputed factual questions — including what source codes were actually delivered, whether they incorporated third-party proprietary technology, and whether contractual exceptions apply — before the construction exercise has any utility.","facts_posture":"Babbobox developed transcription software (the EpiqFAST Platforms) for Epiq Singapore under a Master Software Development Agreement. Babbobox claimed it had disclosed source codes for the platforms and for its proprietary search engine and other solutions under a duty of confidence, and that the defendants breached those duties. The defendants applied under O 9 r 19 for pre-trial determination of whether \"Source Code\" as defined in the agreement formed part of \"Work Product\" — which, if answered affirmatively, they said would entitle them to ownership under cl 9.1 and defeat Babbobox's claims and interim injunction.","decided":"Andre Maniam J declined to determine either the defendants' proposed issue or the claimant's alternative formulation. The application failed both limbs of the conjunctive test in *Hyflux Ltd v SM Investments Pte Ltd* [2020] 4 SLR 1265: the issue was unsuitable for summary determination because it required disputed factual findings, and its determination would not resolve the action or any claim within it. Even if \"Source Code\" formed part of \"Work Product,\" that determination would not address whether Babbobox's other proprietary source codes (which the defendants denied receiving) were Work Product, whether they were incorporated into the platforms, or what rights the parties respectively held.","reasoning":"The Court identified a fundamental mismatch: Babbobox's claims concerned multiple source codes (including for its search engine), yet the defendants' own pleadings confined their ownership claim to the source codes of the EpiqFAST Platforms only, expressly denying that other proprietary technologies were intended to form part of Work Product. The defendants had pleaded (at D&CC [9]) that \"It was neither intended nor understood by the parties that EpiqFAST Commercial was to incorporate the Babbobox Search Engine, and/or other technologies which were proprietary to the Claimant.\" Section 10.2(b)(i) of the agreement expressly prohibited Epiq Singapore from reverse engineering the Babbobox Search Engine — inconsistent with sole and exclusive ownership. The Court analysed the interplay between cl 9.1 (ownership of Work Product), cl 9.3 (Background Technology exception), and cl 10.1 (licence rights), concluding that even if nothing had been formally identified as Background Technology, the contractual scheme contemplated that Epiq Singapore could use and exploit the platforms without necessarily owning every underlying source code. Whether other source codes were incorporated, whether such incorporation was necessary, and whether Epiq Singapore needed ownership (rather than a licence) to use the platforms were all factual questions unsuitable for summary determination.","watch":"The Court's analysis of how ownership (cl 9.1), Background Technology exceptions (cl 9.3), and express usage restrictions (cl 10.2(b)(i)) interact in software development agreements may influence drafting and dispute strategy in IP-intensive contracts, particularly where source code disclosure occurs under confidentiality obligations rather than as formal deliverables."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the two-stage framework from *Hyflux Ltd v SM Investments Ptd Ltd* [2020] 4 SLR 1265 for determining whether to grant pre-trial determination of a question of law or construction under O 14 r 12, treating it as the governing test for such applications. *Manas Kumar Ghosh v MSI Ship Management Ptd Ltd* [2021] 4 SLR 935 was applied for the proposition that even where the O 14 r 12 requirements are satisfied, the Court retains residual discretion on whether to proceed with summary determination. A series of cases including *Aries Telecoms (M) Bhd v ViewQwest Pte Ltd* [2018] 1 SLR 108, *The \"Chem Orchid\"* [2016] 2 SLR 50, *United Overseas Bank Ltd v Lippo Marina Collection Pte Ltd* [2016] 2 SLR 597, and *Federal Insurance Co v Nakano Singapore (Pte) Ltd* [1991] 2 SLR(R) 982 were cited for the uncontroversial principle that summary determination is unsuitable where disputed questions of fact require resolution.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without developing them. The *Hyflux* framework and the Court's discretion affirmed in *Manas Kumar Ghosh* remain the established approach to O 14 r 12 applications, and the Court's treatment of these authorities was entirely orthodox.","cited_cases":[]},{"title":"JFW v JFX","citation":"[2026] SGSCT 6","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGSCT_6","matched_topics":["courts and jurisdiction"],"law_shifted":false,"summary":{"bottom_line":"The Small Claims Tribunals has no jurisdiction over disputes between subsidiary proprietors and Management Corporations, even when framed as claims for breach of a \"contract for the provision of services.\" That relationship is constituted and governed entirely by the Building Maintenance and Strata Management Act 2004 and by-laws made thereunder, not by contract.","facts_posture":"The claimant, a subsidiary proprietor, sought to recover a $300 wheel-clamp release fee from the respondent MCST after his car was clamped for failing to display a valid parking decal. He framed his claim as arising from a \"contract for the provision of services\" concerning parking, relying on his status as owner and payment of management fees. The Tribunal Magistrate heard parties on the preliminary question of subject-matter jurisdiction.","decided":"The Tribunal discontinued the claim under s 5(5) of the Small Claims Tribunals Act 1984, holding that no contract for the provision of services existed between the claimant and the MCST. The relationship between subsidiary proprietors and MCSTs is created and governed by statute—specifically the BMSMA and by-laws constituted thereunder—and does not require or permit the superimposition of a free-standing contractual relationship. The claim therefore fell outside the SCT's jurisdiction.","reasoning":"The Tribunal identified three possible routes to finding a contract: express or implied bilateral contract, multilateral contract arising from the general proprietor-MCST relationship, or collateral contract from the parking application. All three failed because the BMSMA comprehensively governs the relationship. Section 32(6) binds the MCST and subsidiary proprietors \"as if\" they had executed mutual covenants to perform the by-laws; contributions are statutorily required and recoverable as debts, not consideration for a consensual bargain. Layering contract over this statutory matrix was both conceptually confused and unnecessary. The Tribunal rejected the claimant's \"no man's land\" argument, noting two alternative avenues: the Strata Titles Board (which can settle disputes and award damages under s 101 of the BMSMA) and the courts (which can enforce or restrain breaches of by-laws under s 32(10)–(11)). No pragmatic gap exists to justify contractual characterisation.","watch":"The decision expressly reserves all views on the merits, leaving the claimant free to pursue his claim in an appropriate forum—likely the Strata Titles Board or the courts under the statutory enforcement provisions identified at [12]–[13]."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe judgment cites no authorities. The Court's analysis proceeded entirely on first principles and the application of the Sale of Goods Act (Cap 393, 1999 Rev Ed) without reference to prior case law.\n\n---\n\n**Total word count: 38 words**","cited_cases":[]},{"title":"XSQ v LLD","citation":"[2026] SGSCT 1","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGSCT_1","matched_topics":["contract"],"law_shifted":true,"summary":{"bottom_line":"The Small Claims Tribunals have no jurisdiction to hear claims based on cryptocurrency transactions. Cryptocurrencies are not \"goods\" under the Sale of Goods Act 1979 because they are incorporeal property falling within the excluded category of \"things in action\" (choses in action).","facts_posture":"The claimant purchased TerraUSD stablecoin (which subsequently collapsed in value) and initially claimed the respondent sold it to her, then conceded she bought it elsewhere but claimed the respondent's platform materials induced the purchase. She sought $14,328 in damages via the SCT, characterising the dispute as a contract for sale of goods. At the first consultation, the Tribunal raised jurisdiction as a threshold issue.","decided":"The claim was discontinued for want of jurisdiction under s 17(3) of the Small Claims Tribunals Act 1984. The claimant had no \"specified claim\" under s 5(1)(a) SCTA because: (i) she conceded no sale occurred between the parties; (ii) even if it had, cryptocurrency does not constitute \"goods\" under the SOGA; and (iii) the alternative characterisation as provision of services also failed because the staking arrangement created a debtor-creditor relationship, not a service contract.","reasoning":"Applying the SOGA definition of \"goods\" to the SCTA (on the basis that undefined terms may be drawn from in pari materia legislation), the Court held \"goods\" means only tangible personal chattels capable of physical possession. Cryptocurrencies, being incorporeal, cannot qualify. Further, they fall within \"things in action\" — the residual category of intangible property — which s 61(1) SOGA expressly excludes from \"goods.\" The Court endorsed a broad view of choses in action, rejecting a narrow literal reading that would leave cryptocurrencies in a legal vacuum. This approach follows *Colonial Bank v Whinney* (1885) and the New Zealand High Court's reasoning in *Ruscoe v Cryptopia* [2020] NZHC 728. The Court also noted, obiter, that *Quoine v B2C2* [2020] 2 SLR 20 left open the classification question for cryptocurrencies.","watch":"The Court expressly noted that no Singapore superior court has yet ruled on what type of property cryptocurrencies constitute — the Court of Appeal left this open in *Quoine*. While this Small Claims Tribunal decision adopts the \"thing in action\" classification, authoritative appellate guidance remains outstanding."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the four-fold test from *National Provincial Bank v Ainsworth* [1965] 1 AC 1175 as the governing framework for determining whether something qualifies as property under common law, finding that cryptocurrencies satisfy all four requirements (definable, identifiable by third parties, capable of assumption, and having permanence). It endorsed the reasoning in *CLM v CLN* [2022] 5 SLR 273, *AA v Persons Unknown* [2020] 2 All ER (Comm) 704, and *Ruscoe v Cryptopia* [2020] NZHC 728 that cryptocurrencies are property, while noting that *Quoine Pte Ltd v B2C2 Ltd* [2020] 2 SLR 20 expressly left open the question of what *type* of property cryptocurrencies are. The Court engaged substantively with *Colonial Bank v Whinney* (1885) 30 Ch D 261 and the New Zealand High Court's analysis in *Ruscoe* to consider whether the traditional binary categorisation of personal property (things in possession versus things in action) remains adequate for novel digital assets.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment settles that cryptocurrencies are legally recognised as property in Singapore but goes further by addressing the taxonomical question left open in *Quoine*. While declining to definitively resolve whether cryptocurrencies fit within the traditional dichotomy or constitute a third category (*tertium quid*), the Court endorsed the New Zealand High Court's suggestion in *Ruscoe* that \"things in action\" should be understood broadly to encompass intangible property rights beyond mere choses in action. This represents a measured expansion of existing categories to accommodate digital assets rather than a wholesale departure from established property classifications.","cited_cases":[]},{"title":"Create the Future LP & Anor  v Pirate Studios Pte. Ltd. & 2 Ors","citation":"[2026] SGHC 74","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_74","matched_topics":["companies","contract"],"law_shifted":true,"summary":{"bottom_line":"Quorum requirements in a company constitution that mandate representation from different shareholder classes (e.g. founder-appointed and investor-appointed directors) cannot be disapplied by implication merely because one class's voting rights have been suspended under a separate investor rights agreement. The suspension of voting rights does not, without express provision, eliminate the requirement for that director's *presence* at the meeting.","facts_posture":"The applicants were minority shareholders in the Company. Following alleged breaches by the founders, the lender (EPIC) issued a cure notice under the investor rights agreement (IRA) purporting to suspend the voting rights of the two founder-appointed directors. EPIC-appointed directors then convened a board meeting which the founder directors did not attend. Four EPIC directors (out of eight directors total) passed resolutions including one approving conversion of loans to equity that would make EPIC the majority shareholder. The applicants sought declarations that the resolutions were invalid for want of quorum.","decided":"The resolutions were invalid. The constitution required a quorum of a majority of directors *and* the presence of at least one founder director and one EPIC director (Regulation 89). Only the four EPIC directors attended, so the meeting was inquorate. Following *Chang Benety v Tang Kin Fei* [2012] 1 SLR 274, breach of a quorum requirement designed to protect representation of different stakeholders prima facie causes substantial injustice under s 392 of the Companies Act. No term could be implied into the constitution that suspended directors would be excluded from quorum calculations: there was no gap requiring implication, because Regulation 93(1) expressly addressed when directors may be excluded for quorum purposes (conflicts of interest), and Regulation 94(2) addressed when suspended directors' votes would not be required. The Court declined to grant the injunction sought, leaving parties to their contractual remedies.","reasoning":"The Court applied the three-stage *Sembcorp Marine Ltd v PPL Holdings Pte Ltd* [2013] 4 SLR 193 test for implying terms. No term could be implied because parties had expressly turned their minds to when directors would be excluded from quorum (Regulation 93(1)) and when affirmative votes could be dispensed with (Regulation 94(2)). The constitution distinguished between voting rights and attendance for quorum; suspension of the former did not eliminate the latter. The proposed implied term also failed the business efficacy test: alternative mechanisms existed (written resolutions under Regulation 91(1); escalation to shareholders under Regulation 94(2)). The Court followed *Chang Benety* in holding that quorum breaches, though procedural irregularities, cause substantial injustice where the requirement protects negotiated stakeholder representation. Importantly, the Court rejected EPIC's argument that deadlock would result: the constitution itself contemplated deadlock resolution mechanisms.","watch":"The Court left open (at [57]) whether directors who deliberately absent themselves to deny quorum when the business is implementing a shareholder's contractual conversion right might be acting against the company's best interests, potentially justifying their exclusion under Regulation 93(1)(a) if a good faith judgment of conflict is properly made and notified. This signals a possible escape route for lenders facing tactical non-attendance in similar conversions, though it would require specific procedural compliance not present here."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court's analysis centred on two authorities. *Chang Benety v Tang Kin Fei* [2012] 1 SLR 274 was applied extensively across five paragraphs to establish that a breach of quorum requirements designed to protect the representation of different stakeholder groups prima facie causes substantial injustice—a principle the Court treated as settled law governing procedural challenges to company meetings. *Sembcorp Marine Ltd v PPL Holdings Pte Ltd* [2013] 4 SLR 193 provided the governing three-stage framework for the implication of terms into contracts, applied across five paragraphs to structure the Court's analysis of whether unwritten terms could be read into the company's constitution. The citation of *Nanyang Commercial Management Pte Ltd v Matex International Ltd* [2026] 3 SLR 136 is noteworthy for its proposition that injunctive relief remains discretionary even where there has been a clear violation of an express constitutional term—a salutary reminder that breach does not automatically yield remedy.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles to the facts before it without materially developing the law. The Court treated the *Chang Benety* framework for quorum breaches and the *Sembcorp Marine* test for implied terms as established doctrine requiring straightforward application rather than refinement. There is no extension, qualification, or departure from prior authority.","cited_cases":[]},{"title":"Zyfas Medical Co (Sued as a firm) v Millennium Pharmaceuticals, Inc. & Anor","citation":"[2026] SGHCR 9","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCR_9","matched_topics":["civil procedure"],"law_shifted":true,"summary":{"bottom_line":"Where costs relate to concluded proceedings whose value is not contingent on a pending damages inquiry, the Court may assess those costs without awaiting the inquiry's outcome. *Lin Jian Wei* and *Freddie Koh* — which recommend deferring costs assessment until damages are quantified — do not apply where the damages inquiry concerns a separate matter (here, losses from a discharged interlocutory injunction) rather than the substantive claims adjudicated at trial.","facts_posture":"The applicant successfully defended patent infringement claims at a bifurcated trial. The trial judge dismissed the respondents' claims and awarded costs to the applicant. The respondents had earlier obtained an interim injunction restraining the applicant's activities, which was subsequently discharged. A separate assessment of damages inquiry was scheduled to quantify losses, if any, the applicant suffered from that injunction. The applicant filed a bill of costs to assess its trial costs. The respondents applied to defer the costs assessment until the damages inquiry concluded.","decided":"The application was dismissed. The Assistant Registrar held that costs assessment for concluded proceedings need not await a damages inquiry where the inquiry does not reflect the value at stake in those proceedings. The pending assessment concerned losses from an interlocutory injunction — a separate matter from the substantive patent claims fully adjudicated at trial. The quantum potentially awarded in that inquiry would not reflect what was at stake at the liability trial (patent validity and infringement), so it bore no relevance to the proportionality analysis for trial costs.","reasoning":"The Court applied the principle articulated in *Lin Jian Wei* and *Freddie Koh* — that costs in unliquidated damages claims should ordinarily await damages quantification so the taxing court can assess proportionality against \"the stake in the controversy.\" However, those cases concerned bifurcated trials where damages flowed directly from established liability, making damages quantum directly relevant to assessing trial costs proportionality. Here, the damages inquiry addressed wholly separate losses (from a discharged injunction), not compensation for the patent claims adjudicated at trial. What was at stake at trial — patent validity and infringement — had been fully resolved in the applicant's favour. The Court articulated a general principle: where costs relate to concluded proceedings establishing legal rights whose value is not reflected in a pending damages assessment, taxation may proceed immediately.","watch":"The reasoning distinguishes *Lin Jian Wei* and *Freddie Koh* on a basis the Court of Appeal has not previously addressed. Whether this distinction holds on appeal, or requires refinement by the appellate courts, remains to be seen."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court distinguished two Court of Appeal decisions that had established a general prohibition on assessing trial costs before quantum is determined in unliquidated damages claims. In *Lin Jian Wei and another v Lim Eng Hock Peter* [2011] 3 SLR 1052, the Court of Appeal held that trial costs should not be assessed before damages have been determined because costs follow the event and the event includes the quantum awarded. The present Court distinguished *Lin Jian Wei* on the basis that the underlying judgment here had already finally disposed of all substantive claims by dismissing the patent infringement action entirely—there was no outstanding assessment of damages and no possibility that the eventual quantum would affect liability or the overall outcome. Similarly, the Court distinguished *Koh Sing Chong Freddie v Chan Cheng Wah Bernard and others* [2013] 4 SLR 629, which emphasised the \"incontrovertible link\" between costs and judgment amount, on the ground that this link was severed where liability had been conclusively determined against the claimant with no residual issues affecting the defendant's substantive success.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment clarifies rather than changes the law. It confirms that the *Lin Jian Wei* principle against premature costs assessment operates only where quantum remains genuinely uncertain and capable of affecting the characterisation of success or failure. Where, as here, all claims have been dismissed and the only remaining matter is a defendant's counterclaim for unliquidated damages, the rationale for deferring costs assessment does not apply to the trial costs incurred in defending the dismissed claims.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
