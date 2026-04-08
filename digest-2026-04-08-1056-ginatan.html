@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 8 April 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Gina Tan","digest_date":"8 April 2026","cases":[{"title":"WQY v WQZ","citation":"[2026] SGHCF 9","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCF_9","matched_topics":["family law"],"law_shifted":true,"summary":{"bottom_line":"Appellate courts will not disturb ancillary matters orders unless the judge below committed an error of law or principle, failed to appreciate material","facts_posture":"The husband appealed the District Judge's orders granting the wife sole care and control of two children (aged eight and six) and dividing matrimonial assets 55.7% to 44.3% in the wife's favour after an 11-year marriage. The husband sought sole care and control, or extended daily access, and challenged findings on his ownership of a company, alleged dissipation by the wife, adverse inferences, direct contributions to a joint account used for mortgage payments, and the wife's higher indirect contribution ratio.","decided":"The appeal was dismissed. The Court upheld sole care and control to the wife, finding no error in the DJ's assessment of the wife as primary caregiver based on the totality of evidence, rejection of the helper's testimony due to conflict of interest, and acceptance that the wife had ceased vaping. The DJ did not err in finding the husband the sole shareholder of his company despite an unsigned investment agreement, as no supporting evidence (financial statements, third-party affidavits, or subsequent legal proceedings) corroborated his claim. The broad-brush approach to direct contributions and the 70:30 indirect contribution ratio in the wife's favour were within the defensible range.","reasoning":"The Court applied the standard from *UBQ v UBR* [2023] 1 SLR 1294: appellate intervention requires demonstrable error of law, failure to appreciate material facts, or a plainly wrong decision. On care and control, ample evidence supported the wife's closer caregiving involvement, stronger bond with the children, and more structured care plan; the husband's consent to interim care and control arrangements undermined claims the wife engineered the status quo. On assets, the Court found the husband produced insufficient evidence — late-filed screenshots and annotated statements that counsel frankly conceded did not add up — to prove third-party shareholding in his company when business records showed sole ownership and no third parties came forward. Applying *UZN v UZM* [2021] 1 SLR 426, alleged dissipation was either double-counted, offset against maintenance arrears, or occurred before divorce was imminent. Following *ANJ v ANK* [2015] 4 SLR 1043 and *TNL v TNK* [2017] 1 SLR 609, the Court declined to break down indirect contributions into financial and non-financial sub-ratios; the DJ's 70:30 assessment fell within the defensible range given equal contributions for three-quarters of the marriage and the wife's primary caregiving role.","watch":"The Court noted that even when informal investment agreements exist, the party asserting them bears the burden of producing clear supporting evidence (financial statements, confirmatory affidavits, subsequent conduct consistent with the arrangement) — bare assertions and belated, unclear documentation will not suffice, particularly when official records contradict the claim."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the orthodox threshold for appellate intervention in family proceedings set out in *UBQ v UBR* [2023] 1 SLR 1294 and *ANJ v ANK* [2015] 4 SLR 1043, reaffirming that appellate courts will be slow to reverse a trial judge's findings unless an error of law or principle is shown or the decision is plainly wrong. The Court's engagement with *UZN v UZM* [2021] 1 SLR 426 is more noteworthy: it applied the principle that substantial sums expended when divorce proceedings are imminent must be returned to the asset pool absent the other spouse's consent, using this to assess the Husband's allegedly improper dissipation. *TJP v TJQ* [2016] SGFC 4, a Family Court decision, was cited with approval for the proposition that in the absence of clear evidence of individual contributions to joint accounts, it would be unfair to apply an income ratio approach—a point the Court appears to have used to resist overly mechanical attribution of direct contributions where evidence is equivocal.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment does not move the law. It applies settled principles governing appellate intervention, adverse inferences in asset division, and the broad-brush approach to assessing indirect contributions. The Court's treatment of *TJP v TJQ* may offer modest clarification on the limits of income-ratio attribution in contested joint account cases, but this is refinement rather than innovation.","cited_cases":[]},{"title":"GENA HULASH RAM v LIM JOO HUAT ENTERPRISE PTE. LTD","citation":"[2026] SGHC 73","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_73","matched_topics":["employment law"],"law_shifted":false,"summary":{"bottom_line":"Employers of foreign work permit holders cannot treat fixed monthly allowances as payment for overtime — overtime must be calculated and paid at the declared hourly rate, without offset against any fixed allowance. The EFMA Regulations expressly prohibit fixed monthly allowances from including \"any form of overtime payment.\"","facts_posture":"The employee, a foreign worker holding a work permit, was employed as a packer. His In-Principle Approval Letter (\"IPA\") declared a basic monthly salary of $1,000, fixed monthly allowances totalling $500 (including a $300 \"Others\" allowance), and an overtime rate of $7.87 per hour. The employer treated the $300 allowance as fixed compensation for overtime, regardless of hours worked. The employee claimed unpaid overtime. The Employment Claims Tribunal magistrate accepted the employee's hours but ordered that overtime pay be offset against the $300 allowance — so only amounts exceeding $300 per month were payable. The employee appealed.","decided":"The Court allowed the appeal in full. Overtime pay cannot be offset against, or subsumed within, a fixed monthly allowance under the Employment of Foreign Manpower (Work Passes) Regulations 2012. The employee was entitled to overtime calculated at the declared rate for all hours worked, without deduction of the $300 allowance already paid. The employer's arrangement contravened Paragraph 6B of Part IV of the Fourth Schedule, which defines \"fixed monthly allowances\" as excluding \"any form of overtime payment.\"","reasoning":"Paragraph 6B expressly provides that fixed monthly allowances \"shall not include any form of overtime payment.\" By paying only the $300 allowance instead of calculating overtime at the declared rate, the employer had in effect reduced the rate of overtime pay below that declared in the work pass application, contrary to Paragraph 6A(1). The IPA evidences the key employment terms and serves to inform foreign workers clearly what they will be paid (*Liu Huaixi v Haniffa Pte Ltd* [2017] SGHC 270 applied). Section 38(4) of the Employment Act entitles a worker to payment for actual overtime hours worked — no cap or fixed sum is permissible. The magistrate's offset approach did not bring the parties' agreement into compliance with the statutory scheme.","watch":"The Court awarded costs of $9,000 all-in to the employee's pro bono counsel, applying *SATS Construction Pte Ltd v Islam Md Ohidul* [2016] 3 SLR 1164. Party-and-party costs may be awarded where counsel act pro bono for impecunious clients, without offending champertous or unjust enrichment principles."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied *Liu Huaixi v Haniffa Pte Ltd* [2017] SGHC 270 for the uncontroversial proposition that the In-Principle Approval Letter serves to inform foreign workers of their salary in clear terms — a straightforward citation requiring no further analysis. More significantly, the Court applied *SATS Construction Pte Ltd v Islam Md Ohidul* [2016] 3 SLR 1164 to affirm that a successful party remains entitled to costs even where counsel acts pro bono, endorsing its continuing applicability in the present costs dispute. The Court also cited *Law Society of Singapore v Kurubalan s/o Manickam Rengaraju* [2013] 4 SLR 91 for the permissibility and honorability of counsel acting for impecunious clients on the basis that their only real prospect of payment would be through a costs award following success.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles to the facts without developing the law. The treatment of *SATS Construction* and *Kurubalan* reflects orthodox application of established costs principles concerning pro bono representation, with no qualification or extension of those authorities.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
