@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judgment Digest — 12 April 2026</title>
+<style>
+:root {
+  --accent: #6b1c23;
+  --accent-hover: #8a2630;
+  --accent-light: #f9f0f1;
+  --accent-border: #e8c8cb;
+  --black: #111111;
+  --dark: #2a2a2a;
+  --mid: #555555;
+  --light: #888888;
+  --muted: #aaaaaa;
+  --faint: #cccccc;
+  --rule: #e2e2e2;
+  --surface: #f7f7f7;
+  --surface-warm: #fafafa;
+  --white: #ffffff;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--surface);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 32px 48px 80px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper { padding: 28px 32px 60px; }
+}
+
+@media (max-width: 768px) {
+  .page-wrapper { padding: 20px 16px 48px; }
+  .header-title { font-size: 22px; }
+  .stats-row { gap: 16px; }
+  .case-name { font-size: 16px; }
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-header { padding: 14px 16px; }
+  .case-detail { padding: 18px 16px; }
+  header { padding: 20px 18px; }
+  .expand-btn { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .page-wrapper { padding: 12px 10px 40px; }
+  .header-title { font-size: 19px; }
+  .stats-row { flex-wrap: wrap; gap: 12px; }
+  .stat { min-width: 70px; }
+  .filters { gap: 4px; }
+  .filter-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+header {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+}
+
+.header-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.25;
+}
+
+.header-meta {
+  font-size: 13px;
+  color: var(--light);
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--white);
+  margin-bottom: 14px;
+  outline: none;
+  color: var(--black);
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--faint); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  font-size: 12px;
+  font-family: var(--sans);
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.filter-btn:hover { border-color: var(--accent-border); background: var(--accent-light); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.filter-count { font-size: 10px; opacity: 0.5; margin-left: 3px; }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.case-card:hover { border-color: var(--faint); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.case-card.expanded { border-color: var(--accent-border); box-shadow: 0 2px 8px rgba(107,28,35,0.06); }
+
+.case-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 24px;
+  cursor: pointer;
+  gap: 14px;
+  user-select: none;
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--mid);
+  transition: all 0.15s;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.expand-btn:hover { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+.case-card.expanded .expand-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.expand-btn span { display: inline-block; transition: transform 0.15s; }
+.case-card.expanded .expand-btn span { transform: rotate(90deg); }
+
+.case-info { flex: 1; min-width: 0; }
+
+.case-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.case-cite-line { font-size: 12px; color: var(--light); }
+
+.case-bottom-line {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  padding: 0 24px 14px 70px;
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0 24px 18px 70px;
+}
+
+.tag-topic {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--rule);
+}
+
+.tag-shift {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--accent-border);
+}
+
+.case-detail {
+  border-top: 1px solid var(--rule);
+  padding: 28px 24px 28px 70px;
+  background: var(--surface-warm);
+  display: none;
+}
+.case-card.expanded .case-detail { display: block; }
+
+@media (max-width: 768px) {
+  .case-bottom-line, .case-tags { padding-left: 16px; }
+  .case-detail { padding-left: 16px; }
+}
+
+.section { margin-bottom: 22px; }
+.section:last-child { margin-bottom: 0; }
+
+.section-heading {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+  display: inline-block;
+}
+
+.section-text { font-size: 14px; color: var(--dark); line-height: 1.8; }
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.auth-entry { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.auth-entry:last-child { border-bottom: none; }
+.auth-entry:nth-child(even) { background: var(--surface); }
+
+.auth-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.auth-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--dark); }
+
+.auth-treatment {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 2px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+.treat-applied { color: #1a5276; background: #eaf2f8; border: 1px solid #c5dbe8; }
+.treat-followed { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+.treat-distinguished { color: #7d5a2f; background: #fdf6ed; border: 1px solid #e8d8bf; }
+.treat-overruled, .treat-not-followed { color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); }
+.treat-considered { color: var(--mid); background: var(--surface); border: 1px solid var(--rule); }
+.treat-cited { color: var(--light); background: var(--surface); border: 1px solid var(--rule); }
+.treat-approved { color: #1a5c38; background: #eaf5ed; border: 1px solid #bce0c7; }
+
+.auth-prop { font-size: 12px; color: var(--light); line-height: 1.55; margin-top: 4px; }
+
+.case-link {
+  display: block; padding: 14px 24px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 0.3px;
+  border-top: 1px solid var(--rule); background: var(--white); transition: background 0.1s;
+}
+.case-link:hover { background: var(--accent-light); }
+
+footer { text-align: center; padding: 28px 0; font-size: 12px; color: var(--light); margin-top: 28px; line-height: 1.7; }
+
+.hidden { display: none !important; }
+
+mark.search-highlight { background: var(--accent-light); color: var(--accent); padding: 1px 2px; border-radius: 2px; border-bottom: 2px solid var(--accent-border); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header>
+<div class="header-label">Judgment digest</div>
+<div class="header-title" id="digest-title"></div>
+<div class="header-meta" id="digest-meta"></div>
+<div class="stats-row" id="stats-row"></div>
+</header>
+<input class="search-bar" type="text" placeholder="Search cases, topics, or cited authorities..." id="search-input" />
+<div class="filters" id="filters"></div>
+<div id="case-list"></div>
+<footer>Generated based on your registered topic preferences.<br><em>This does not constitute legal advice.</em></footer>
+</div>
+<script>
+const DIGEST_DATA = {"user_name":"Vincent","digest_date":"12 April 2026","cases":[{"title":"Low Jun Hong & 5 Ors v Hong Qi Yu & Anor","citation":"[2026] SGHCR 11","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHCR_11","matched_topics":["contract"],"law_shifted":true,"summary":{"bottom_line":"Third parties seeking to rely on an arbitration clause in a contract to which they are not party face a high threshold under the Contracts (Rights of Third Parties) Act 2001. Merely being named as a beneficiary of an exclusion or indemnity clause does not automatically confer standing to invoke an arbitration clause governing disputes under that contract.","facts_posture":"Customers of a defunct cryptocurrency exchange brought representative proceedings against the exchange's former director and COO for fraudulent misrepresentation. The defendants applied to stay the proceedings in favour of arbitration, relying on an arbitration clause in the Customer Service Agreement between the exchange operator and each customer. The defendants were not parties to the CSA but claimed entitlement to enforce the arbitration clause as \"Relevant Parties\" and \"Indemnified Parties\" expressly benefiting from exclusion and indemnity clauses in the CSA.","decided":"The stay applications were dismissed. The Court held that neither s 9(1) nor s 9(2) of the CRTPA entitled the defendants to rely on the arbitration clause. Section 9(1) did not apply because the defendant director's hypothetical indemnity claim was inchoate and merely speculative, and relying on the exclusion clause as a defence could not be converted into a positive procedural right to arbitration. Section 9(2) did not apply because the CSA's third-party rights clause did not expressly confer a unilateral procedural right on third parties to require arbitration; it merely carved them out from a general prohibition on third-party enforcement.","reasoning":"The Court applied the framework in *Fortress Value Recovery Fund I LLC v Blue Skye Special Opportunities Fund LP* [2013] 1 WLR 3466, endorsed by the Court of Appeal in *VKC v VJZ* [2021] 2 SLR 753. Under s 9(1), a third party enforcing a substantive contractual right subject to arbitration must submit to arbitration when bringing a claim, but the provision does not bind a third party defending a claim to arbitrate — doing so would improperly convert a procedural qualification into a positive procedural right and violate the consensual nature of arbitration. Very clear contractual language is required to achieve that result. The Court found no such language. Clause 34.6 merely identified which third parties could enforce specific substantive clauses (the exclusion and indemnity provisions), not that they could enforce the arbitration clause itself. Under s 9(2), the contract must expressly confer a unilateral right on the third party to require arbitration; distinguishing third parties in a carve-out clause does not suffice.","watch":"The Court acknowledged but accepted the risk of fragmentation — the company could arbitrate with customers while its officers face court proceedings — suggesting that avoiding fragmentation, without more, will not override strict construction of third-party arbitration rights. Whether clearer drafting could achieve a different result on similar facts remains untested."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court's analysis turned principally on the Singapore Court of Appeal's decision in *VKC v VJZ* [2021] 2 SLR 753, which it followed in holding that very clear language is required before a third party's right to rely on an exclusion clause defence will be found subject to an arbitration agreement. The Court undertook a detailed analysis of the English Court of Appeal's decision in *Fortress Value Recovery Fund I LLC v Blue Skye Special Opportunities Fund LP* [2013] 1 WLR 3466, considering its application of sections 8(1) and 8(2) of the UK Contracts (Rights of Third Parties) Act 1999 to determine when third parties may invoke arbitration clauses—though the Court's engagement suggests this was primarily to understand the analytical framework rather than to depart from local authority. *Debenho Pte Ltd v Envy Global Trading Pte Ltd* [2022] SGHC 7 was applied for the proposition that parallel criminal proceedings do not automatically warrant a stay of civil proceedings, a point of procedural significance in the context of fraud allegations.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles without materially developing them. The Court's treatment of *VKC v VJZ* confirms the high threshold for subjecting third-party reliance on exclusion clauses to arbitration, reinforcing that contractual clarity—not judicial inference—determines the scope of arbitration agreements where non-parties seek contractual protections. The analysis does not break new ground but provides a useful application of existing doctrine to a contractual dispute involving third-party beneficiaries and arbitration clauses.","cited_cases":[{"case_name":"Iskandar bin Rahmat v Attorney-General","citation":"[2022] 2 SLR 1018","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"The test for striking out a pleading for disclosing no reasonable cause of action, being an abuse of process, or in the interests of justice"},{"case_name":"Chandra Winata Lie v Citibank NA","citation":"[2015] 1 SLR 875","court":"High Court","jurisdiction":"Singapore","treatment":"applied","proposition":"A statement of claim discloses no reasonable cause of action if it does not contain the facts relevant to each essential element of a known cause of action"},{"case_name":"Leong Quee Ching Karen v Lim Soon Huat and others","citation":"[2023] 4 SLR 1133","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"It is an abuse of process to bring an action for a collateral purpose or to knowingly pursue a case that is doomed to fail"},{"case_name":"Lipkin International Ltd v Swiber Holdings Ltd","citation":"[2015] 5 SLR 962","court":"High Court","jurisdiction":"Singapore","treatment":"distinguished","proposition":"While it is unusual for a party to pursue a claim for breach of contract when neither the existence of the contract nor its breach was ever raised in correspondence prior to proceedings, this alone is insufficient to strike out the claim"},{"case_name":"Sembcorp Marine Ltd v PPL Holdings Pte Ltd","citation":"[2013] 4 SLR 193","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"The test for implying a term into a contract, including the 'business efficacy' and 'officious bystander' tests"},{"case_name":"EFT Holdings, Inc v Marinteknic Shipbuilders (S) Pte Ltd","citation":"[2014] 1 SLR 860","court":"Court of Appeal","jurisdiction":"Singapore","treatment":"applied","proposition":"The elements required to succeed in a claim for conspiracy by unlawful means"},{"case_name":"Bank of China Ltd, Singapore Branch v BP Singapore Pte Ltd","citation":"[2021] 5 SLR 738","court":"High Court","jurisdiction":"Singapore","treatment":"distinguished","proposition":"Whether a conspiracy claim should be struck out for failure to identify specific individuals within a corporate defendant who were involved in the alleged conspiracy"}]},{"title":"AQUILO SHIPPING INC v SRTT MARINE TRADING & SERVICES PTE LTD","citation":"[2026] SGHC 79","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_79","matched_topics":["arbitration","contract","civil procedure","admiralty and shipping","injunctions"],"law_shifted":true,"summary":{"bottom_line":"Clause 9 of the Norwegian Saleform 2012 does not impose an obligation on the seller to furnish security to procure the release of an arrested vessel. The indemnity is compensatory, not preventive: the seller must reimburse the buyer for losses arising from pre-delivery claims, but need not intercede to prevent those losses from being suffered in the first place.","facts_posture":"Aquilo purchased a vessel from SRTT under a Memorandum of Agreement based on the Norwegian Saleform 2012. After delivery, the vessel was arrested in Singapore by a third party claiming misdelivery of cargo that occurred before delivery. Aquilo applied under s 12A of the International Arbitration Act for an interim mandatory injunction compelling SRTT to furnish security (approximately US$3.97 million) to procure the vessel's release. Aquilo had not commenced arbitration against SRTT at the time of the application, some two months after the arrest.","decided":"The Court dismissed the application on two independent grounds. First, Aquilo failed to satisfy s 12A(4) of the IAA: the case was not \"one of urgency\" given the unexplained two-month delay in commencing arbitration and the absence of evidence of any genuine intention to do so. Second, there was no serious question to be tried. Clause 9 of the Saleform 2012 is a compensatory indemnity requiring the seller to reimburse the buyer for losses caused by pre-delivery claims, not a preventive indemnity obliging the seller to furnish security or otherwise prevent the buyer from suffering loss.","reasoning":"The Court exercised its power of summary determination under O 9 r 19(1) of the Rules of Court 2021 to resolve the question of contractual construction, noting that determining discrete issues of law at an interlocutory stage can save time and costs where no factual dispute is implicated. Applying settled principles of contractual interpretation, the Court held that the indemnity in clause 9 is compensatory in nature. The universality of the phrase \"all consequences\" of claims against the vessel indicated that the seller could not possibly intercede to prevent certain losses (such as loss of use, earnings, and port charges flowing immediately from arrest). The commercial purpose of clause 9—protecting the buyer against risks better known to the seller—did not require the seller to act preventively. The Court followed *Rank Enterprises Ltd v Gerard* [2000] 1 All ER (Comm) 449 on the broad meaning of \"claims made against the vessel,\" but distinguished cases concerning maritime letters of indemnity (*The Bremen Max*, *Tomongo Shipping*), which contain express provisions requiring the indemnifier to furnish security. The Court applied the contra proferentem rule: in cases of ambiguity, indemnity clauses are construed strictly against the indemnified party, given their burden-shifting effect. The Court also noted that standard form contracts must be interpreted to promote consistency and predictability, limiting the role of party-specific context.","watch":"The Court left open whether a suitably worded amendment to clause 9 could impose an express obligation to furnish security or assist with the vessel's defence. The reasoning suggests courts will require clear language before treating ship sale indemnities as preventive in nature, particularly given the market understanding reflected in leading practitioners' texts."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied *Five Ocean Corp v Cingler Ship Pte Ltd* [2016] 1 SLR 1159 for the two-stage framework under s 12A(4) of the IAA governing interim orders in aid of arbitration, requiring both urgency and necessity. It then applied *NCC International AB v Alliance Concrete Singapore Pte Ltd* [2008] 2 SLR(R) 565 for the proposition that delay in commencing arbitration bears on whether a case is \"one of urgency\" — a point that proved determinative here. Most significantly, the Court adopted and applied *Group Lease Holdings Pte Ltd v Group Lease Public Co Ltd* [2025] 3 SLR 1315, a very recent decision establishing that the \"path of least injustice\" approach governs both mandatory and prohibitory injunctions, thereby unifying the analytical framework and jettisoning the traditional distinction drawn in *American Cyanamid Co v Ethicon Ltd* [1975] AC 396 between the two types of relief.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment consolidates and applies the recently-clarified position in *Group Lease Holdings* that Singapore now uses a single unified test — the \"path of least injustice\" — for all forms of interim injunction, whether mandatory or prohibitory. While *American Cyanamid* remains cited for basic propositions (serious question to be tried, balance of convenience), the Court treated *Group Lease Holdings* as having fundamentally reoriented the analysis toward minimising overall injustice rather than mechanically categorising the relief sought. This represents a clear shift away from the traditional English approach that imposed heightened thresholds for mandatory relief.","cited_cases":[]},{"title":"SHIJU VARGHESE JOYCE & Anor  v KIDNEY THERAPEUTICS CENTRE PTE. LTD. & Anor","citation":"[2026] SGHC 81","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_81","matched_topics":["companies","contract"],"law_shifted":false,"summary":{"bottom_line":"Parties claiming an oral shareholders' agreement must plead and prove both its existence and its terms with precision—evidence of subsequent conduct alone, without contemporaneous documents or credible disinterested testimony, will rarely suffice. Alleged legitimate expectations grounding a s 216 oppression claim must be properly pleaded and cannot rest solely on an agreement the claimant has failed to prove.","facts_posture":"The claimants, a husband and wife nursing team, alleged they entered into an undocumented \"Founding Agreement\" with the defendant nephrologist in May 2021 before incorporating a dialysis company. They claimed the agreement provided for equal profit-sharing (notwithstanding 67:33 registered shareholding), mutual veto rights over major decisions, and that neither Leena (the registered 33% shareholder) nor Dr Yang would be removed as directors. When the relationship soured in 2022, the claimants sued for breach of contract, misrepresentation, and minority oppression under s 216 of the Companies Act. The defendant denied the agreement's existence outright.","decided":"The claims were dismissed in their entirety. The Court held the claimants failed to prove on the balance of probabilities that the alleged Founding Agreement was ever concluded. Without that foundational agreement, the claims for breach and misrepresentation necessarily failed. The s 216 oppression claim also failed: while not premised solely on the Founding Agreement, the claimants' pleaded legitimate expectations rested almost entirely on it, and no other informal or implied understanding was adequately proved. None of the specific acts complained of—refusal to provide financial information, termination of employment, failure to declare dividends, or drawing a medical director's fee—constituted commercial unfairness in the circumstances.","reasoning":"Applying settled principles from *Chan Tam Hoi* and *ARS*, the Court emphasised that contemporaneous documentary evidence is generally preferred over oral testimony in establishing oral agreements. Here, the claimants produced no such evidence. The parties' subsequent conduct was inherently ambiguous and could be explained by arrangements other than the alleged Founding Agreement. Critically, the claimants' former solicitors had sent several letters alleging oppression in late 2022 but never mentioned the Founding Agreement—an omission the Court found telling. On oppression, the Court noted the relationship did exhibit some personal trust (given informality and lack of written documentation), but the claimants' pleaded case tied their legitimate expectations expressly to the unproven Founding Agreement. Even assuming other implied or informal understandings existed, the Court found no breach: Dr Yang's drawing of a medical director's fee occurred only after the company became profitable (consistent with what both sides said was agreed); Leena's removal as director was justified by Shiju's establishment of a competing dialysis centre next door; and the failure to declare dividends for FYE April 2024 was explained by a loss that year, while for FYE April 2023 Leena had failed to attend the AGM required to declare them.","watch":"The Court's discussion of nominee shareholders' standing under s 216 (at [51]–[53]) clarifies that a nominee's \"interests\" for oppression purposes may include the beneficial owner's economic interests, following *Marten, Joseph Matthew*—though the beneficial owner himself has no independent standing to sue. The observation that informal understandings may arise even outside the quasi-partnership label (at [68]) continues the trend in *Anita Hatta* and *Deniyal*, but the Court's insistence that such understandings must still be specifically pleaded and proved (not merely asserted) limits their practical utility where claimants rely heavily on one alleged foundational agreement."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established framework from *Chan Tam Hoi v Wang Jian* [2022] SGHC 192 concerning the claimant's burden of proving an oral agreement, which is routine. More significantly, it applied *Marten, Joseph Matthew v AIQ Pte Ltd* [2023] SGHC 361 for the proposition that only registered shareholders at the time proceedings are commenced have standing to seek relief under s 216 of the Companies Act — a threshold point that appears to have been determinative on standing. On the substantive law of minority oppression, the Court drew on the familiar triumvirate of *Ebrahimi v Westbourne Galleries Ltd* [1973] AC 360, *O'Neill v Phillips* [1999] 1 WLR 1092, and *Thio Syn Kym Wendy v Thio Syn Pyn* [2017] SGHC 169 to apply the principle that legitimate expectations may arise from informal understandings among shareholders and that equitable considerations can make insistence on strict legal rights unjust in the oppression context.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment applies settled principles to the facts without developing the law. The standing requirement from *Marten* and the equitable overlay from *Ebrahimi*, *O'Neill*, and *Thio Syn Kym Wendy* are well-established in Singapore. Nothing in the Court's treatment of these authorities suggests any qualification, extension, or reconsideration of existing doctrine.","cited_cases":[]},{"title":"THE LAW SOCIETY OF SINGAPORE v LIM TEAN","citation":"[2026] SGHC 78","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_78","matched_topics":["legal profession"],"law_shifted":true,"summary":{"bottom_line":"A solicitor who deposits client money into the office account rather than the client account breaches r 3(1) of the Legal Profession (Solicitors' Accounts) Rules and commits grossly improper conduct, but where no dishonesty is found, a financial penalty rather than suspension or striking off is the appropriate sanction. The quantum of the fine will turn on aggravating factors including the solicitor's seniority and cavalier attitude to accounting obligations.","facts_posture":"The respondent solicitor acted for a client in a motor accident claim. After judgment for $50,000, the client purportedly discharged him and appointed new solicitors on 13 November 2019. The following day, the defendant's insurers sent the respondent a cheque for $30,000 as interim payment. The respondent banked it into his firm's office account, not the client account, and claimed he had been re-instructed by the client at meetings on 15 and 26 November 2019. The Law Society charged him with (i) receiving and presenting the cheque without authority after discharge (First Charge), and (ii) breaching r 3(1) of the Legal Profession (Solicitors' Accounts) Rules by failing to deposit client money into the client account (Second Charge). The Disciplinary Tribunal found both charges proved. The respondent had not testified initially on criminal counsel's advice; the Court of Three Judges remitted the matter for him to give evidence, and the DT again convicted.","decided":"The Court set aside the conviction on the First Charge but upheld the Second Charge and imposed a fine of $30,000. On the First Charge, the Law Society failed to prove beyond reasonable doubt that the respondent acted without the client's authority, because it did not challenge the respondent's evidence that he met the client on 26 November 2019 and made payments as instructed, nor did it call the client to rebut this account. On the Second Charge, the respondent admitted depositing the cheque into the office account and raised no applicable exception under r 9 of the LPSAR; liability for breach of the accounting rules is strict if not absolute, and ignorance of the rules — even for an unfamiliar practice area — is no defence.","reasoning":"The Court applied the criminal standard of proof. The LSS bore the burden of proving the First Charge beyond reasonable doubt, yet it accepted without challenge that a meeting occurred on 26 November 2019 at which the respondent paid sums to the client and a third party, corroborated by signed acknowledgment notes. The DT found there was no earlier meeting on 15 November 2019, but the Court held this finding was unsafe given the undisputed later meeting and payments, which were consistent with the respondent's account of a continuing retainer. The LSS's withdrawal of the dishonesty charge (Third Charge) because the client refused to testify underscored the evidential gap on the First Charge, which turned on the same factual matrix. On the Second Charge, the Court followed *Law Society of Singapore v Chiong Chin May Selena* [2005] 4 SLR(R) 320 and *Law Society of Singapore v Dhanwant Singh* [2020] 4 SLR 736: breaches of the LPSAR are strict and warrant disciplinary action regardless of the solicitor's subjective belief or unfamiliarity with the area of practice. Ignorance of the rules aggravates rather than mitigates the breach. The Court rejected the respondent's excuse that his firm had no client account because it had never done personal injury work, describing this as reflecting a \"severe lack of even basic diligence\" and a \"cavalier attitude\" to fundamental obligations.\n\nOn sanction, the Court applied the framework in *Law Society of Singapore v Tay Choon Leng John* [2012] 3 SLR 150: absent dishonesty, a financial penalty rather than suspension is appropriate for grossly improper conduct. The quantum was calibrated by reference to the sum involved ($30,000), the absence of mitigation, the respondent's seniority (over 25 years' experience), his failure to clarify instructions with the new solicitors before acting, and his dismissive attitude to accounting rules. The fine of $30,000 was set above the $15,000 in *John Tay* (given the larger sum at stake) but below the $50,000 in *Dhanwant Singh* (where there was potential client loss and no restitution).","watch":"The Court's reasoning on the First Charge turned heavily on the LSS's failure to call the complainant client or challenge the respondent's account of the 26 November meeting. Prosecutors in disciplinary cases must actively engage with and rebut factual assertions that bear on the core elements of a charge, not simply rest on documentary inferences — a reminder that criminal proof standards apply with full rigour even where the respondent's credibility is weak."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court reaffirmed the strict liability regime for breaches of the Legal Profession (Solicitors' Accounts) Rules, following *Law Society of Singapore v Chiong Chin May Selena* [2005] 4 SLR(R) 320 and *Law Society of Singapore v Dhanwant Singh* [2020] 4 SLR 736. Significantly, it applied *Dhanwant Singh* to reject any defence based on bona fide belief in entitlement to act as the solicitor did—this application matters because it confirms that subjective good faith cannot displace the strict liability standard, even where the solicitor might have believed accounting treatment was permissible. The Court also relied on *Law Society of Singapore v Hanam, Andrew John* [2023] 4 SLR 1280 to calibrate the appropriate sanction, applying the principle that grossly improper conduct absent dishonesty typically attracts a monetary penalty rather than suspension.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment applies settled principles to the facts without developing new law. The strict liability nature of solicitors' accounts breaches and the irrelevance of bona fide belief are well-established through the cited authorities, and the Court did not extend, narrow, or qualify those principles. The sentencing approach likewise follows the recent framework in *Hanam*, treating non-dishonest gross impropriety as warranting financial penalties—a categorisation that continues the trajectory of that decision without adding to it.","cited_cases":[]},{"title":"THE BEAUTY NATION PTE. LTD. v HERBS HEALTH BEN CAO KANG MU PTE. LTD. & Anor","citation":"[2026] SGHC 77","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_77","matched_topics":["intellectual property","copyright","trade marks and trade names"],"law_shifted":true,"summary":{"bottom_line":"An authorised retailer selling genuine goods online does not infringe the proprietor's copyright or trade marks where the proprietor, through its distributor, continued supplying goods for years without objection despite actual knowledge of the retailer's use of product photographs and marketing materials in online listings—an implied licence by conduct arose.","facts_posture":"Beauty Nation owned registered trade marks and copyright in marketing materials for Traditional Chinese Medicine supplements. It supplied these products via its related company, RKPL, to Herbs Health, an authorised retailer since 2011. From 2017, Herbs Health and its online arm, TCM Shop, sold the products on third-party e-commerce platforms using photographs and marketing materials owned by Beauty Nation. In October 2023, Beauty Nation issued a cease and desist letter. Herbs Health stopped online sales. Beauty Nation sued for copyright infringement, trade mark infringement, and inverse passing off. The defendants counterclaimed for groundless threats.","decided":"All of Beauty Nation's claims failed. An implied licence by conduct arose permitting the defendants' use of both the copyright materials and trade marks. The Court found no copyright infringement under s 146 of the Copyright Act 2021 and no trade mark infringement under s 27 of the Trade Marks Act 1998, as Beauty Nation had consented to the use. The inverse passing off claim failed for want of actionable misrepresentation—consumers were not confused about the commercial source of genuine goods. The counterclaim for groundless threats succeeded in principle, but the Court made no order as the defendants proved no loss.","reasoning":"The Court applied the objective test for implied licence by conduct from *Helme v Maher* [2015] EWHC 3151 (IPEC): whether the copyright owner's words and conduct, as made known to the alleged licensee, objectively indicated consent. Three facts were decisive: Beauty Nation pleaded it had observed the online listings since 2017; RKPL continued supplying products monthly without objection despite this knowledge; and RKPL acted on Beauty Nation's behalf in all retailer dealings. The decade-long relationship built on trust, coupled with continued supply notwithstanding known use, objectively manifested consent. The Court rejected Beauty Nation's attempt at trial to resile from its pleaded admission of knowledge since 2017. The reasoning applied equally to trade mark consent. On passing off, the Court found no misrepresentation because the defendants sold genuine goods from Beauty Nation and Beauty Nation's trade marks remained clearly identifiable in all listings—the policy rationale for inverse passing off (protecting against misattribution of goodwill) was not engaged. The Court criticised Beauty Nation's litigation strategy as lacking commercial and legal logic given the defendants were long-standing trusted retailers selling genuine goods.","watch":"The Court's robust criticism of Beauty Nation's litigation conduct—described as lacking \"legal and commercial logic\" and potentially misusing the simplified IP process to stifle legitimate competition—signals judicial impatience with proprietors weaponising IP rights against authorised retailers of genuine goods absent clear prior objection."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\n*Singsung Pte Ltd v LG 26 Electronics Pte Ltd* [2016] 4 SLR 86 was applied most extensively, providing the governing framework for both the elements of passing off and the principles for groundless threats of infringement proceedings — its repeated citation across seven paragraphs suggests it served as the principal authority for the claims at hand. *Tessensohn Denyse Bernadette v John Robert Powers School Inc* [1994] 1 SLR(R) 470 was applied to establish the elements of inverse passing off, with *Golden Season Pte Ltd v Kairos Singapore Holdings Pte Ltd* [2015] 2 SLR 751 supplementing the analysis by clarifying the underlying policy considerations. On the copyright issue, *Virtual Map (Singapore) Pte Ltd v Suncool International Pte Ltd* [2005] 2 SLR(R) 157 was applied for the proposition that a work derived from copyright infringement may nonetheless attract independent copyright protection — a point that remains somewhat counterintuitive but is now well-established.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment applies settled principles without materially developing them. The court worked within the established frameworks for passing off, inverse passing off, and copyright subsistence, with no indication of any extension, qualification, or departure from prior authority. The analysis appears entirely orthodox.","cited_cases":[]},{"title":"TRAN THI TIEN v PUBLIC PROSECUTOR","citation":"[2026] SGHC 80","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_80","matched_topics":["criminal law","criminal procedure and sentencing"],"law_shifted":true,"summary":{"bottom_line":"The High Court has established a comprehensive five-step sentencing framework for offences of unauthorised receipt of confidential information under s 5(2) of the Official Secrets Act, adapting the Logachev framework to this context. A custodial sentence is not automatic even where general deterrence is paramount: fines remain available for cases involving slight harm and low culpability, particularly where the recipient's knowledge is limited and role relatively passive.","facts_posture":"The appellant pleaded guilty to receiving a police report number from a police officer, having reasonable grounds to believe it was communicated in breach of the OSA. She had asked the officer—investigating an unrelated matter—for information about her ex-husband's theft case for use in divorce proceedings. The officer accessed the CRIMES II database without authorisation and sent her the report number via","decided":"The appeal was allowed and the custodial sentence replaced with a fine of $1,500. The Court held that for s 5(2) OSA offences involving slight harm and low culpability, the indicative sentencing range is a fine or short custodial term. On these facts—limited information disclosed, no actual harm caused, a single simple request, and only \"reasonable grounds to believe\" rather than actual knowledge of the breach—the custodial threshold was not crossed. The Court established a detailed harm-culpability matrix with nine indicative sentencing ranges spanning from fines to two years' imprisonment.","reasoning":"The Court adopted the five-step Logachev framework as appropriate for s 5(2) OSA offences given the wide variety of circumstances in which such offences may be committed, making benchmark or principal factual elements approaches unsuitable. At step one, the Court identified non-exhaustive lists of harm-specific factors (nature and amount of information, extent of actual harm, extent of breach and dissemination) and culpability-specific factors (offender's role, duration and persistence, extent of knowledge, planning, sophistication, use of threats, concealment, syndicate involvement, transnational element). Motive was excluded as a distinct culpability factor: in most s 5(2) cases the recipient seeks some perceived personal benefit, and ranking different motives is neither feasible nor productive absent exceptional circumstances (e.g. receipt to damage national security). The Court rejected the DJ's reliance on a subsequent 2022 incident as demonstrating \"persistence\": following Suzanna Bong and Chua Siew Peng, post-offence conduct may be considered only where it has sufficient nexus to the charged offence, which requires temporal and spatial proximity or relevance to the offender's state of mind at the time of the offence—absent here. The Court also corrected the Prosecution's mischaracterisation of Phua Keng Tong: the recipient there had not been passive but had identified the information needed and reminded the disclosing party of his access. On knowledge, \"reasonable grounds to believe\" imports lower culpability than actual knowledge. General deterrence remains the primary sentencing consideration, confirmed by the 2011 Ministerial statement emphasising firm prosecution of all leaks to protect governmental functioning and public confidence.","watch":"The Court expressly confined its framework to s 5(2) offences and made no pronouncement on whether the same approach applies to s 5(1) (unauthorised communication). The indicative sentencing ranges for categories beyond slight harm/low culpability are provisional and will require further development in future cases. The Court left open that in exceptional circumstances—such as receipt to pass information to a foreign power—motive may constitute a relevant culpability factor."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied *Goh Ngak Eng v Public Prosecutor* [2023] 4 SLR 1385 as the governing framework for offence-specific factors in corruption sentencing, citing it extensively across multiple paragraphs addressing culpability and harm. *Public Prosecutor v Wong Chee Meng* [2020] 5 SLR 807 was similarly applied for offender-specific sentencing factors. The most significant engagement was with *Public Prosecutor v Phua Keng Tong* [1985-1986] SLR(R) 545, which the Court distinguished across 13 separate paragraphs—the Court evidently considered *Phua Keng Tong*'s sentencing approach for Official Secrets Act offences inapplicable to the present circumstances, though the precise basis for distinction would require examination of the judgment itself. The parity principle from *Chong Han Rui v Public Prosecutor* [2016] SGHC 25 was applied in the conventional manner for co-offenders in a common enterprise.\n\n## DEVELOPMENT OF THE LAW\n\nThe judgment applies settled corruption sentencing principles from recent High Court authority without materially developing them. The extensive treatment of *Phua Keng Tong* suggests the Court may have clarified the boundaries of that decision's application to Official Secrets Act offences, though whether this represents a narrowing of *Phua Keng Tong* or merely factual distinction depends on the reasoning deployed.","cited_cases":[]},{"title":"Ever Strategy Consultants Limited v PSA International Pte. Ltd. & 11 Ors","citation":"[2026] SGHC 76","court":"","url":"https://www.elitigation.sg/gd/s/2026_SGHC_76","matched_topics":["civil procedure","contract"],"law_shifted":true,"summary":{"bottom_line":"Oral collateral agreements that contradict comprehensive written contracts will be struck out where contemporaneous documentary evidence — particularly the claimant's own conduct over years of correspondence — proves the alleged agreement to be a fiction.","facts_posture":"Ever Strategy claimed it had a 10% indirect interest in a Panamanian port project (PPITSA) through holdings in two intermediate companies. It alleged PSA International and Liberman entered a verbal \"Collateral Agreement\" in March 2011 requiring Ever Strategy's consent before its indirect shareholding could be diluted. That shareholding was diluted twice (2015 and 2017) without consent. Ever Strategy sued for breach of contract, inducement of breach, breach of fiduciary duty, dishonest assistance, and conspiracy by unlawful means. The defendants applied to strike out. The Assistant Registrar refused; the defendants appealed.","decided":"Chua Lee Ming J allowed all three appeals and struck out the entire claim. The alleged Collateral Agreement was factually unsustainable on the contemporaneous evidence. To the extent claims for breach of contract and derivative claims (inducement, dishonest assistance) depended on that agreement's existence, they were struck out. The conspiracy claim failed for inadequate pleading of combination. Claims based on the first dilution were also time-barred — the obligation was to seek consent (a definite act), not a continuing obligation to maintain shareholding structure.","reasoning":"The Court found that Ever Strategy signed a written Consultancy Agreement in June 2011 expressly providing it had no management rights in PSA Panama and no entitlement to further share allotments, permitting dilution without consent. This was irreconcilable with an agreement made three months earlier guaranteeing maintenance of its shareholding. More tellingly, over three years of detailed email exchanges (2014–2017) concerning dilution and whether Ever Strategy would inject funds to maintain its stake, Ever Strategy never once mentioned the Collateral Agreement or asserted a non-dilution right. Chang instead complained about lack of information, high costs, and the absence of a formal capital call — complaints inconsistent with an absolute anti-dilution right. The Court rejected the claimant's reliance on *Lipkin International Ltd v Swiber Holdings Ltd* [2015] 5 SLR 962, noting that while silence alone may be insufficient, it was overwhelming when combined with affirmative evidence contradicting the agreement. The Court refused to imply a continuing obligation to maintain shareholding structure, holding such a term failed the *Sembcorp Marine Ltd v PPL Holdings Pte Ltd* [2013] 4 SLR 193 \"officious bystander\" test and was inconsistent with the Amended and Restated Shareholders' Agreement permitting dilution for non-funding. On conspiracy, the Court followed *EFT Holdings, Inc v Marinteknik Shipbuilders (S) Pte Ltd* [2014] 1 SLR 860, finding Ever Strategy's pleadings defective for failing to identify how the alleged conspirators combined or what concerted action was taken.","watch":"The Court found a criminal complaint filed by Ever Strategy in Panama equivocal but ultimately self-serving, declining to strike out on that basis alone — suggesting collateral proceedings may require careful scrutiny but will not automatically undermine a pleaded case. The judgment demonstrates the Court's willingness to weigh affidavit evidence comprehensively at the striking-out stage where the contemporaneous record is one-sided."},"judicial_treatment":"# Judicial Treatment\n\n## AUTHORITIES THAT MATTER\n\nThe Court applied the established striking-out framework from *Iskandar bin Rahmat v Attorney-General* [2022] 2 SLR 1018 and *Chandra Winata Lie v Citibank NA* [2015] 1 SLR 875 without modification. The engagement with *Lipkin International Ltd v Swiber Holdings Ltd* [2015] 5 SLR 962 is analytically significant: the Court distinguished *Lipkin* on the ground that the present case involved not merely a failure to raise the claim in pre-action correspondence, but a pattern of inconsistent pleading and conduct suggesting the claim was fabricated for litigation purposes. The Court also distinguished *Bank of China Ltd, Singapore Branch v BP Singapore Pte Ltd* [2021] 5 SLR 738, where the failure to identify specific individuals was held insufficient to strike out a conspiracy claim; here, the Court found that the complete absence of particulars as to who within the corporate defendant was involved went beyond mere lack of detail and rendered the conspiracy claim wholly unworkable.\n\n## DEVELOPMENT OF THE LAW\n\nThis judgment does not alter the legal tests for striking out or for conspiracy claims, but it does clarify the boundaries of what constitutes an abuse of process in the context of belatedly pleaded contract claims. The Court effectively extended the *Lipkin* principle: while silence in pre-action correspondence is insufficient to strike out a claim, active pursuit of inconsistent positions across multiple forums combined with the absence of documentary foundation may satisfy the abuse of process threshold. The treatment of *Bank of China* likewise refines the particularity required in conspiracy pleadings, distinguishing between cases where the corporate structure merely complicates identification and cases where the pleading is wholly skeletal.","cited_cases":[]}]};
+const data = DIGEST_DATA;
+document.getElementById('digest-title').textContent = data.digest_date;
+document.getElementById('digest-meta').textContent = data.cases.length + ' judgment' + (data.cases.length !== 1 ? 's' : '') + ' \u00B7 Prepared for ' + data.user_name;
+const allTopics = [];
+data.cases.forEach(c => c.matched_topics.forEach(t => { if (!allTopics.includes(t)) allTopics.push(t); }));
+const shiftCount = data.cases.filter(c => c.law_shifted).length;
+document.getElementById('stats-row').innerHTML = '<div class="stat"><span class="stat-num">' + data.cases.length + '</span><span class="stat-label">Judgments</span></div><div class="stat"><span class="stat-num">' + allTopics.length + '</span><span class="stat-label">Your topics</span></div>' + (shiftCount > 0 ? '<div class="stat"><span class="stat-num">' + shiftCount + '</span><span class="stat-label">Notable shifts</span></div>' : '');
+const topicCounts = {};
+data.cases.forEach(c => c.matched_topics.forEach(t => { topicCounts[t] = (topicCounts[t] || 0) + 1; }));
+let filtersHTML = '<button class="filter-btn active" data-topic="all">All<span class="filter-count">' + data.cases.length + '</span></button>';
+Object.keys(topicCounts).sort().forEach(t => { filtersHTML += '<button class="filter-btn" data-topic="' + t + '">' + t + '<span class="filter-count">' + topicCounts[t] + '</span></button>'; });
+document.getElementById('filters').innerHTML = filtersHTML;
+function getTreatClass(t) { return 'treat-' + (t || 'cited').toLowerCase().replace(/\s+/g, '-'); }
+function formatJT(jt) { if (!jt) return ''; return jt.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/##?\s*([^\n]+)/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+function renderCases(cases) {
+  let html = '';
+  cases.forEach((c, i) => {
+    const topicTags = c.matched_topics.map(t => '<span class="tag-topic">' + t + '</span>').join('');
+    const shiftTag = c.law_shifted ? '<span class="tag-shift">Notable development</span>' : '';
+    const sp = c.summary || {};
+    let sections = '';
+    if (sp.bottom_line) sections += '<div class="section"><div class="section-heading">Bottom line</div><div class="section-text">' + sp.bottom_line + '</div></div>';
+    if (sp.facts_posture) sections += '<div class="section"><div class="section-heading">Facts &amp; posture</div><div class="section-text">' + sp.facts_posture + '</div></div>';
+    if (sp.decided) sections += '<div class="section"><div class="section-heading">What the court decided</div><div class="section-text">' + sp.decided + '</div></div>';
+    if (sp.reasoning) sections += '<div class="section"><div class="section-heading">How it reasoned</div><div class="section-text">' + sp.reasoning + '</div></div>';
+    if (c.judicial_treatment) sections += '<div class="section"><div class="section-heading">Judicial treatment</div><div class="section-text">' + formatJT(c.judicial_treatment) + '</div></div>';
+    if (c.cited_cases && c.cited_cases.length > 0) {
+      const sig = c.cited_cases.filter(cc => ['applied','followed','distinguished','overruled','not followed','approved','considered'].includes((cc.treatment||'').toLowerCase())).slice(0, 8);
+      if (sig.length > 0) {
+        let authHTML = '';
+        sig.forEach(cc => { authHTML += '<div class="auth-entry"><div class="auth-top"><span class="auth-name">' + cc.case_name + '</span><span class="auth-treatment ' + getTreatClass(cc.treatment) + '">' + cc.treatment + '</span></div>' + (cc.proposition ? '<div class="auth-prop">' + cc.proposition + '</div>' : '') + '</div>'; });
+        sections += '<div class="section"><div class="section-heading">Key authorities (' + c.cited_cases.length + ' total)</div><div class="auth-box">' + authHTML + '</div></div>';
+      }
+    }
+    if (sp.watch) sections += '<div class="section"><div class="section-heading">Watch</div><div class="section-text">' + sp.watch + '</div></div>';
+    const searchable = (c.title + ' ' + (c.citation||'') + ' ' + c.matched_topics.join(' ') + ' ' + (c.cited_cases||[]).map(cc => cc.case_name).join(' ')).toLowerCase().replace(/"/g, '');
+    html += '<div class="case-card" data-topics=\'' + JSON.stringify(c.matched_topics) + '\' data-searchable="' + searchable + '">' +
+      '<div class="case-header" onclick="toggleCard(this)">' +
+      '<div class="expand-btn"><span>&#9654;</span></div>' +
+      '<div class="case-info"><div class="case-name">' + c.title + '</div><div class="case-cite-line">' + (c.citation||'') + '</div></div>' +
+      '</div>' +
+      '<div class="case-bottom-line">' + (sp.bottom_line || '') + '</div>' +
+      '<div class="case-tags">' + topicTags + shiftTag + '</div>' +
+      '<div class="case-detail">' + sections + (c.url ? '<a class="case-link" href="' + c.url + '" target="_blank">View full judgment &#8594;</a>' : '') + '</div></div>';
+  });
+  document.getElementById('case-list').innerHTML = html;
+}
+renderCases(data.cases);
+function toggleCard(el) { el.closest('.case-card').classList.toggle('expanded'); }
+document.getElementById('filters').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const topic = btn.dataset.topic;
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (topic === 'all') { card.classList.remove('hidden'); }
+    else { const topics = JSON.parse(card.dataset.topics); card.classList.toggle('hidden', !topics.includes(topic)); }
+  });
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-topic="all"]').classList.add('active');
+
+  // Clear previous highlights
+  document.querySelectorAll('mark.search-highlight').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (!q) {
+      card.classList.remove('hidden');
+      return;
+    }
+    const matches = card.dataset.searchable.includes(q);
+    card.classList.toggle('hidden', !matches);
+    if (matches && q.length >= 2) {
+      // Highlight matching text in visible fields
+      const targets = card.querySelectorAll('.case-name, .case-cite-line, .case-bottom-line, .tag-topic, .tag-shift, .auth-name');
+      targets.forEach(el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node => {
+          const idx = node.textContent.toLowerCase().indexOf(q);
+          if (idx === -1) return;
+          const before = node.textContent.substring(0, idx);
+          const match = node.textContent.substring(idx, idx + q.length);
+          const after = node.textContent.substring(idx + q.length);
+          const frag = document.createDocumentFragment();
+          if (before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          if (after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+        });
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
